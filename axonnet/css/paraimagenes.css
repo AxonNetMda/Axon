@@ -1,0 +1,20 @@
+﻿
+#fileInput1
+{
+    display: none; /* Oculta el campo de entrada de archivos */
+}
+
+#fileInputContainer button {
+    /* Estilos adicionales para el botón si es necesario
+    padding: 10px 20px; */
+    background-color: #ffc107;
+    color: white;
+}
+
+.img-preview {
+    display: none; /* Ocultar inicialmente la imagen */
+    max-width: 300px; /* Establecer un tamaño máximo */
+    max-height: 300px;
+}
+
+
