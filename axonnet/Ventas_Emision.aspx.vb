@@ -26,6 +26,9 @@ Public Class Ventas_Emision
     Private dtDetalleFactura As DataTable
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim valorCelda As Integer
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
 
         If Not IsPostBack Then
             ' Cambiar la configuración regional a es-AR (Argentina) solo para esta página

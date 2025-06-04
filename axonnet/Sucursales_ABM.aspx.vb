@@ -11,6 +11,9 @@ Public Class Sucursales_lista
     Public Property nIdSucursal As Integer
     Dim HayError As Boolean = False
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") = "" Then
+            Response.Redirect("~/login.aspx")
+        End If
 
         If IsPostBack Then
         Else

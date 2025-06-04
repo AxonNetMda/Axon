@@ -24,20 +24,14 @@
 		<div class="card-body">
                      <div class="row"> 
                            <div class="col-md-2" style="background-color:silver"> 
-                               <br />
+                                <br />
                                 <asp:Image ID="imagen" CssClass="img-thumbnail" runat="server" ImageUrl="assets/img/no-image.jpg" Width="200px" />
                                 <br />
-                                
-<%--                                <input type="file" id="fileUpload1" accept="image/*" onchange="mostrarImagen(event)" runat="server" />  --%>
-                                <p><asp:FileUpload  Type="file" id="fileUpload1" accept="image/*" onchange="mostrarImagen(event)" runat="server" Width="110" Font-Size="Small" CssClass="btn btn-default"/></p>
-<%--                                <p><asp:Button ID="btnCargar" runat="server" Text="Sin Imagen" OnClientClick="document.getElementById('fileUpload1').click(); return false;" CssClass="btn btn-secondary btn-sm" /></p>--%>
-                               <asp:HiddenField ID="hNombreImagen" runat="server" Value="no-imagen.jpg" />
+                                <asp:FileUpload ID="fileUpload1" runat="server" CssClass="form-control" accept="image/*" />
                                 <br />
-                                <br />
-                                <hr />
-                                <asp:Button runat="server" ID="BtnGuardar" cssclass="btn btn-primary" Text="Guardar" onclick="BtnGuardar_Click"/>
-                                <asp:button runat="server" ID="BtnCancelar" cssclass="btn btn-success" Text="Cancelar" PostBackUrl="~/Usuarios_lista.aspx?idUsuario=0&Titulo=''&Accion=''" />
-
+                                <asp:HiddenField ID="hNombreImagen" runat="server" Value="no-imagen.jpg" />
+                                <asp:Button runat="server" ID="BtnGuardar" CssClass="btn btn-primary mt-2" Text="Guardar" OnClick="BtnGuardar_Click"/>
+                                <asp:Button runat="server" ID="BtnCancelar" CssClass="btn btn-success mt-2" Text="Cancelar" PostBackUrl="~/Usuarios_lista.aspx?idUsuario=0&Titulo=''&Accion=''" />
                             </div>
                            <div class="col-md-10">  
                                 <asp:Panel ID="PanelDatos" runat="server">

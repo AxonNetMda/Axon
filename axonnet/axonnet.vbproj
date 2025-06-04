@@ -13,7 +13,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>axonnet</RootNamespace>
     <AssemblyName>axonnet</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,11 +59,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -72,6 +71,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
     <Reference Include="zxing, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.16.10\lib\net47\zxing.dll</HintPath>
@@ -104,6 +104,8 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CatalogoAdministracion.aspx" />
+    <Content Include="Catalogo_Ficha.aspx" />
     <Content Include="Cliente_lista.aspx" />
     <Content Include="Cliente_Lista_ABM.aspx" />
     <Content Include="Compras_Emision.aspx" />
@@ -490,6 +492,7 @@
     <Content Include="producto_inventario.aspx" />
     <Content Include="producto_lista.aspx" />
     <Content Include="producto_lista_ABM.aspx" />
+    <Content Include="producto_lista_precios_suc.aspx" />
     <Content Include="producto_marca_lista.aspx" />
     <Content Include="producto_marca_lista_ABM.aspx" />
     <Content Include="producto_stock_ajustes.aspx" />
@@ -622,7 +625,6 @@
     <Content Include="Imagenes\agregar24.png" />
     <Content Include="Imagenes\anulafactura.png" />
     <Content Include="Imagenes\articoheladeria.png" />
-    <Content Include="Imagenes\axon.png" />
     <Content Include="Imagenes\buscar.png" />
     <Content Include="Imagenes\caja.png" />
     <Content Include="Imagenes\cajacierres.png" />
@@ -662,20 +664,16 @@
     <Content Include="Imagenes\grabar.png" />
     <Content Include="Imagenes\grabarboton.png" />
     <Content Include="Imagenes\guardar20-0.png" />
-    <Content Include="Imagenes\ilcaballino.png" />
     <Content Include="Imagenes\imgLogin.png" />
     <Content Include="Imagenes\imgLogo.png" />
     <Content Include="Imagenes\imgSinFoto.png" />
     <Content Include="Imagenes\imgSinImagen.png" />
     <Content Include="Imagenes\imprimir.png" />
     <Content Include="Imagenes\imprimir30.png" />
-    <Content Include="Imagenes\imprimiretiquetas.png" />
     <Content Include="Imagenes\inventario.png" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\logofacebook.png" />
     <Content Include="Imagenes\logoinstagram.png" />
-    <Content Include="Imagenes\logowh.png" />
-    <Content Include="Imagenes\logowh130.fw.png" />
     <Content Include="Imagenes\menos20.png" />
     <Content Include="Imagenes\MonedaAR30.fw.png" />
     <Content Include="Imagenes\MonedaEU30.fw.png" />
@@ -716,9 +714,7 @@
     <Content Include="Imagenes\sin limites 01.png" />
     <Content Include="Imagenes\sin limites 02.png" />
     <Content Include="Imagenes\sin limites 03.png" />
-    <Content Include="Imagenes\sin-foto.jpg" />
     <Content Include="Imagenes\sinfoto.jpg" />
-    <Content Include="Imagenes\sinfoto.png" />
     <Content Include="Imagenes\stock.png" />
     <Content Include="Imagenes\StockCritico30.png" />
     <Content Include="Imagenes\subcategorias.png" />
@@ -728,7 +724,6 @@
     <Content Include="Imagenes\Ventas01.png" />
     <Content Include="Imagenes\volver.png" />
     <Content Include="Imagenes\volver30.png" />
-    <Content Include="Imagenes\welcomehome.jpg" />
     <Content Include="js\actions.js" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\demo_charts_morris.js" />
@@ -1254,6 +1249,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatalogoAdministracion.aspx.designer.vb">
+      <DependentUpon>CatalogoAdministracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogoAdministracion.aspx.vb">
+      <DependentUpon>CatalogoAdministracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Catalogo_Ficha.aspx.designer.vb">
+      <DependentUpon>Catalogo_Ficha.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogo_Ficha.aspx.vb">
+      <DependentUpon>Catalogo_Ficha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Cliente_lista.aspx.designer.vb">
       <DependentUpon>Cliente_lista.aspx</DependentUpon>
     </Compile>
@@ -1358,6 +1367,13 @@
     <Compile Include="producto_lista_ABM.aspx.vb">
       <DependentUpon>producto_lista_ABM.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_lista_precios_suc.aspx.designer.vb">
+      <DependentUpon>producto_lista_precios_suc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_lista_precios_suc.aspx.vb">
+      <DependentUpon>producto_lista_precios_suc.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="producto_marca_lista.aspx.designer.vb">
       <DependentUpon>producto_marca_lista.aspx</DependentUpon>
@@ -1542,6 +1558,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
       <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>

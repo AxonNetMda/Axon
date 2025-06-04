@@ -3,8 +3,6 @@ Imports CapaDatos
 Imports CapaDatos.Conexion
 Imports capaEntidad
 Imports capaNegocio
-Imports CrystalDecisions.CrystalReports.Engine
-Imports CrystalDecisions.Shared
 Public Class repo2
     Inherits System.Web.UI.Page
     Public Property scomando As String
@@ -20,6 +18,10 @@ Public Class repo2
     ' Obtener la fila seleccionada
     Dim selectedFila As GridViewRow
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If Not IsPostBack Then
             Dim valorCelda As Integer
             Dim listrepo As List(Of sucursal)
@@ -233,7 +235,7 @@ Public Class repo2
     ' Método para cargar los datos de la tabla ReposicionDetalle
     Private Function CargarFacturaDetalle(ByVal idReposicion As Integer) As DataTable
         Dim query As String = "Select dbo.reposicionesdetalles.idRepoDetalle,  dbo.reposicionesdetalles.idReposicion, dbo.reposicionesdetalles.idProducto, dbo.reposicionesdetalles.Cantidad,
-                               dbo.producto.Nombre as NombreProducto,  dbo.preciodeventa(PrecioCosto, AlicuotaIVA, Ganancia) as PrecioVenta  FROM dbo.reposicionesdetalles 
+                               dbo.producto.Nombre as NombreProducto,  dbo.preciodeventa2(PrecioCosto, AlicuotaIVA, Ganancia) as PrecioVenta  FROM dbo.reposicionesdetalles 
                                INNER JOIN dbo.producto ON dbo.reposicionesdetalles.idProducto = dbo.producto.idProducto WHERE idreposicion = @idReposicion"
         Dim dt As New DataTable()
 

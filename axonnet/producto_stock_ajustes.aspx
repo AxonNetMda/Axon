@@ -13,9 +13,7 @@
     <link href="css/datatables/jquery.dataTables.min.css" rel="stylesheet" />  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-            <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("login.aspx?idUsuario=0")
-            End If %>
+
 
      <div class="container-fluid px-4">
         <ol class="breadcrumb mb-4">
@@ -81,7 +79,11 @@
                                 <label for="txtCantidad">Cantidad</label> 
                             </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-2">
+                           <div class="form-floating mb-3"> 
+                                <asp:textbox ID="txtPrecio" CssClass="form-control text-end" runat="server" Text="0,00" ForeColor="black" Width="150px" ReadOnly="true"></asp:textbox> 
+                                <label for="txtPrecio">Precio</label> 
+                            </div>
                       </div>
                     </div>   
              </div>

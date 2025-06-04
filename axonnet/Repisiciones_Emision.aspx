@@ -1,22 +1,13 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Administracion.Master" CodeBehind="Repisiciones_Emision.aspx.vb" Inherits="axonnet.Repisiciones_Emision" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   <script src="Scripts/WebForms/MSAjax/MicrosoftAjax.js"></script>
-   <script src="Scripts/WebForms/MSAjax/MicrosoftAjaxWebForms.js"></script>
-   <link href="css/styles.css" rel="stylesheet" />
-    <link href="css/paraimagenes.css" rel="stylesheet" />
-    <link href="css/check_css.css" rel="stylesheet" />
-    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap-file-input.js"></script>
-    <script src="js/datatables/dataTables.fixedHeader.min.js"></script>
-    <script src="js/datatables/jquery.dataTables.min.js"></script>
-    <script src="js/datatables/jquery3701.js"></script>
-    <link href="css/datatables/fixedHeader.dataTables.min.css" rel="stylesheet" />
-    <link href="css/datatables/jquery.dataTables.min.css" rel="stylesheet" />  
+  <link href="css/check_css.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-                        <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
-
      <div class="container-fluid px-4">
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="Default.aspx">ADMINISTRACION</a></li>
@@ -206,7 +197,7 @@
 </div>   
 
 <%--Abrir modal para Validar respuesta                                                                                                                                                                  --%>
-<div class="modal fade" id="MdlGuardarREpo" tabindex="-1" role="dialog" aria-labelledby="myMdlGuardarREpo" data-bs-backdrop="static" style="display:none">
+<div class="modal fade" id="MdlGuardarRepo" tabindex="-1" role="dialog" aria-labelledby="myMdlGuardarRepo" data-bs-backdrop="static" style="display:none">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -224,70 +215,13 @@
   </div>
 </div>   
 
- <!-- ventana modal NUEVA REPOSICION-->    
-        <div class="modal fade" id="MdlMdlReposicion" tabindex="-1" role="dialog" aria-labelledby="myMdlReposicion" data-bs-backdrop="static" style="display:none">                         
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-dark text-white" >
-                            <h4 class="modal-title" id="myMdlReposicion">Atencion</h4>
-                        </div>
-                               
-                        <div class="modal-body" style="color:black;">
-                                <div class="form-floating mb-3">                                     
-                                    <asp:Label ID="lblSucursal" runat="server" Text="<%#cboSucursal.Text %>" cssclass="form-control"></asp:Label>
-                                    <label for="lblSucursal">Sucursal</label>   
-                                </div>
-                            <div class="form-group">
-                             <div class="form-floating mb-3">
-                                    <asp:DropDownList runat="server" CssClass="form-control text-danger" id="cboASucursal" Width="300" Font-Bold="true" AutoPostBack="true"></asp:DropDownList>
-                                    <label for="cboASucursal"> A Sucursal</label>                                   
-                                </div>
-                            </div>  
-                                <div class="form-floating mb-3">      
-                                     <asp:label runat ="server" ID="lblIdProducto"  CssClass="form-control"></asp:label>
-                                    <label for="lblIdProducto">Producto</label> 
-                                    <asp:label runat ="server" ID="lblProductoMDL"  CssClass="form-control"></asp:label>
-                                    <label for="lblProductoMDL">Producto</label>  
-                                </div> 
-                                <div class="form-floating mb-3">                                      
-                                    <asp:label runat ="server" ID="lblStock"  CssClass="form-control"></asp:label>
-                                    <label for="lblStock">Stock Actual</label>  
-                                </div>  
-                                <br />
-<%--                             <div class="form-floating mb-3"> 
-                                    <asp:DropDownList ID="cboAjuste" CssClass="form-control" runat="server"></asp:DropDownList> 
-                                    <label for="cboAjuste">Ajuste</label> 
-                                </div>--%>
-                               <div class="form-floating mb-3"> 
-                                    <asp:textbox ID="txtCantidadMDL" CssClass="form-control text-end" runat="server" TextMode="Number" Text="0" ForeColor="black" Width="150px"></asp:textbox> 
-                                    <label for="txtCantidad">Cantidad</label> 
-                                </div>
-                        </div>   
-                        <div class="modal-footer">
-                            <asp:button runat="server" ID="btnAceptarMDLSave" class="btn btn-primary" data-bs-dismiss="modal" Text="Aceptar"></asp:button>  
-                            <asp:button runat="server" ID="btnCerrarMDLEdit" class="btn btn-success" data-bs-dismiss="modal" Text="Cerrar"></asp:button>   
-                        </div>
-                    </div><!-- modal content -->
-                </div><!-- modal dialog -->        
-            </div>
-        <!-- modal fade --> 
-      <script >	
-
-		  function showModalReposicion() {
-              $("#MdlGuardarREpo").modal("show");
-           }
-
-		   function showModalAtencion() {
-               $("#MdlAtencion").modal("show");
-           }
-		   function showModalFormaPAgo() {
-			   $("#MdlFormaPago").modal("show");
-          }
-
-          function showModalGuardarRepo() {
-              $("#MdlEditar").modal("show");
-          }
-      </script>
-
-
+    <script>
+        function showModalReposicion() {
+            var myModal = new bootstrap.Modal(document.getElementById('MdlGuardarRepo'), {
+                backdrop: 'static',
+                keyboard: false
+            });
+            myModal.show();
+        }
+    </script>
 </asp:Content>

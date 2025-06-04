@@ -19,10 +19,6 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-            <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
-
     <div class="container-fluid px-4">
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="Default.aspx">ADMINISTRACION</a></li>
@@ -162,7 +158,7 @@
             <div class="card-footer bg-body">
                 <div class="row">
                     <div class="form-floating mb-3">                                     
-                        <asp:Button ID="btnVolver" runat="server" cssclass="btn btn-info" Width ="150" Font-Bold="true" Font-Size="Small"  Text=" Volver " OnClick="btnVolver_Click" ></asp:Button>
+                        <asp:Button ID="btnVolver" runat="server" cssclass="btn btn-info" Width ="150" Font-Bold="true" Font-Size="Small"  Text=" Volver " PostBackUrl="~/DefaultAdmin.aspx" ></asp:Button>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,10 @@ Public Class producto_marca_lista_ABM
 	Public Property nIdMarca As Integer
 	Dim HayError As Boolean = False
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+		If Session("sNombreUsuario") Is Nothing Then
+			Response.Redirect("~/login.aspx")
+		End If
+
 		If IsPostBack Then
 		Else
 			PanelDatos.Enabled = True

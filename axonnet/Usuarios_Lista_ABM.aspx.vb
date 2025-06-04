@@ -11,6 +11,10 @@ Public Class Usuarios_Lista_ABM
 	Public Property nIdusuario As Integer
 	Dim HayError As Boolean = False
 	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+		If Session("sNombreUsuario") Is Nothing Then
+			Response.Redirect("~/login.aspx")
+		End If
+
 		If IsPostBack Then
 		Else
 			PanelDatos.Enabled = True
@@ -96,7 +100,137 @@ Public Class Usuarios_Lista_ABM
 				End If
 		End If
 	End Sub
-	Protected Sub BtnGuardar_Click(ByVal sender As Object, ByVal e As EventArgs)
+	'Protected Sub BtnGuardar_Click(ByVal sender As Object, ByVal e As EventArgs)
+	'	Dim script As String = ""
+
+	'	HayError = False
+	'	If Trim(txtNombre.Text) = "" Then
+	'		lblMensajeAtencion.Text = "El nombre del usuario no puede ser vacio"
+	'		ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ShowModal", "$(document).ready(function() { $('#MdlAtencion').modal('show'); });", True)
+	'		HayError = True
+	'		Exit Sub
+	'	End If
+	'	If Trim(txtDomicilio.Text) = "" Then
+	'		lblMensajeAtencion.Text = "El domicilio del usuario no puede ser vacio"
+	'		ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ShowModal", "$(document).ready(function() { $('#MdlAtencion').modal('show'); });", True)
+	'		HayError = True
+	'		Exit Sub
+	'	End If
+	'	If Trim(txtEmail.Text) = "" Then
+	'		lblMensajeAtencion.Text = "El email del usuario no puede ser vacio"
+	'		ScriptManager.RegisterStartupScript(Me, Me.GetType(), "ShowModal", "$(document).ready(function() { $('#MdlAtencion').modal('show'); });", True)
+	'		HayError = True
+	'		Exit Sub
+	'	End If
+	'	If hNombreImagen.Value = "" Then
+	'		hNombreImagen.Value = "no-image.jpg"
+	'	Else
+
+
+	'	End If
+	'	If fileUpload1.HasFile AndAlso hNombreImagen.Value = "no-image.jpg" Then
+	'		hNombreImagen.Value = "no-image.jpg"
+	'	Else
+
+	'	End If
+	'	Dim objusuario As usuario = New usuario() With {
+	'		.idusuario = Convert.ToInt32(txtIdUsuario.Text),
+	'		.Nombre = UCase(txtNombre.Text),
+	'		.Email = txtEmail.Text,
+	'		.Clave = "",
+	'		.Domicilio = txtDomicilio.Text,
+	'		.CodigoPostal = txtCodigoPostal.Text,
+	'		.Localidad = txtLocalidad.Text,
+	'		.Provincia = txtProvincia.Text,
+	'		.Celular = txtCelular.Text,
+	'		.FotoNombre = hNombreImagen.Value,
+	'		.FotoPath = "\imagenes\",
+	'		.oRol = New rol() With {.idRol = Convert.ToInt32(cboRol.SelectedValue)},
+	'		.Estado = Convert.ToInt32(cboEstado.SelectedValue)
+	'	}
+	'	Dim idusuariogenerado As Integer = 0
+
+
+	'	Using conn As New SqlClient.SqlConnection(Conexion.conectar.Cadena)
+	'		Dim query As String = ""
+	'		Dim cmd As SqlCommand
+	'		Dim mensaje As String = ""
+	'		Dim resultado As Boolean = False
+	'		sAccion = Request.QueryString("Accion")
+	'		If Convert.ToInt32(txtIdUsuario.Text) = 0 Then
+	'			idusuariogenerado = New CD_Usuario().Registrar(objusuario, mensaje)
+	'			If mensaje = "" Then
+	'				Response.Redirect("Usuarios_lista.aspx")
+	'			Else
+	'				lblMensajeAtencion.Text = mensaje
+	'				script = "$(function() { showModalMensaje(); }); "
+	'				ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", script, True)
+	'			End If
+	'		Else
+	'			If sAccion = "E" Then
+	'				resultado = New CD_Usuario().Editar(objusuario, mensaje)
+	'			ElseIf sAccion = "B" Then
+
+
+	'				resultado = New CD_Usuario().Eliminar(objusuario, mensaje)
+	'			Else
+	'				lblMensajeAtencion.Text = "No hay accion para realizar."
+	'				script = "$(function() { showModalMensaje(); }); "
+	'				ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", script, True)
+	'			End If
+	'			If resultado Then
+	'				Response.Redirect("Usuarios_lista.aspx")
+	'			Else
+	'				lblMensajeAtencion.Text = mensaje
+	'				imagen.ImageUrl = "imagenes/no-imagen.jpg"
+	'				script = "$(function() { showModalMensaje(); }); "
+	'				ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", script, True)
+	'			End If
+	'		End If
+
+	'	End Using
+	'End Sub
+
+	Protected Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
+		Dim idUsuario As Integer = nIdusuario ' Reemplazá con la lógica real
+		Dim nombreArchivoFinal As String = "no-image.jpg"
+
+		If fileUpload1.HasFile Then
+			Try
+				' Obtener la extensión y validar tipo
+				Dim extension As String = System.IO.Path.GetExtension(fileUpload1.FileName).ToLower()
+				Dim extensionesValidas As String() = {".jpg", ".jpeg", ".png", ".gif"}
+				If Not extensionesValidas.Contains(extension) Then
+					' Mostrar error si no es válida
+					lblMensaje.Text = "Solo se permiten archivos JPG, PNG o GIF."
+					Exit Sub
+				End If
+
+				' Nombre del archivo: idUsuario + extensión
+				nombreArchivoFinal = idUsuario.ToString() & extension
+
+				' Ruta para guardar el archivo
+				Dim rutaGuardar As String = Server.MapPath("~/imagenes/" & nombreArchivoFinal)
+				fileUpload1.SaveAs(rutaGuardar)
+
+				' Actualizar imagen en pantalla
+				imagen.ImageUrl = "~/imagenes/" & nombreArchivoFinal
+
+				' Guardar en HiddenField
+				hNombreImagen.Value = nombreArchivoFinal
+
+				' Guardar el nombre en la base de datos (adaptá la lógica a tu estructura)
+				GuardarNombreImagenEnBD(idUsuario, nombreArchivoFinal)
+
+			Catch ex As Exception
+				lblMensaje.Text = "Error al subir la imagen: " & ex.Message
+			End Try
+		Else
+			lblMensaje.Text = "Debe seleccionar una imagen antes de guardar."
+		End If
+	End Sub
+
+	Private Sub GuardarNombreImagenEnBD(ByVal nidUsuario As Integer, ByVal archivo As String)
 		Dim script As String = ""
 
 		HayError = False
@@ -118,20 +252,15 @@ Public Class Usuarios_Lista_ABM
 			HayError = True
 			Exit Sub
 		End If
-		If hNombreImagen.Value = "" Then
-			hNombreImagen.Value = "no-image.jpg"
-		Else
 
-
-		End If
-		If fileUpload1.HasFile AndAlso hNombreImagen.Value = "no-image.jpg" Then
+		If archivo = "no-image.jpg" Then
 			hNombreImagen.Value = "no-image.jpg"
 		Else
 
 		End If
 		Dim objusuario As usuario = New usuario() With {
 			.idusuario = Convert.ToInt32(txtIdUsuario.Text),
-			.Nombre = txtNombre.Text,
+			.Nombre = UCase(txtNombre.Text),
 			.Email = txtEmail.Text,
 			.Clave = "",
 			.Domicilio = txtDomicilio.Text,
@@ -139,7 +268,7 @@ Public Class Usuarios_Lista_ABM
 			.Localidad = txtLocalidad.Text,
 			.Provincia = txtProvincia.Text,
 			.Celular = txtCelular.Text,
-			.FotoNombre = hNombreImagen.Value,
+			.FotoNombre = archivo,
 			.FotoPath = "\imagenes\",
 			.oRol = New rol() With {.idRol = Convert.ToInt32(cboRol.SelectedValue)},
 			.Estado = Convert.ToInt32(cboEstado.SelectedValue)
@@ -159,8 +288,8 @@ Public Class Usuarios_Lista_ABM
 					Response.Redirect("Usuarios_lista.aspx")
 				Else
 					lblMensajeAtencion.Text = mensaje
-					script = "$(function() { showModalMensaje(); }); "
-					ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", script, True)
+					Script = "$(function() { showModalMensaje(); }); "
+					ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", Script, True)
 				End If
 			Else
 				If sAccion = "E" Then
@@ -171,46 +300,21 @@ Public Class Usuarios_Lista_ABM
 					resultado = New CD_Usuario().Eliminar(objusuario, mensaje)
 				Else
 					lblMensajeAtencion.Text = "No hay accion para realizar."
-					script = "$(function() { showModalMensaje(); }); "
-					ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", script, True)
+					Script = "$(function() { showModalMensaje(); }); "
+					ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", Script, True)
 				End If
 				If resultado Then
 					Response.Redirect("Usuarios_lista.aspx")
 				Else
 					lblMensajeAtencion.Text = mensaje
 					imagen.ImageUrl = "imagenes/no-imagen.jpg"
-					script = "$(function() { showModalMensaje(); }); "
-					ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", script, True)
+					Script = "$(function() { showModalMensaje(); }); "
+					ScriptManager.RegisterStartupScript(Me, Page.GetType(), "btn1", Script, True)
 				End If
 			End If
 
 		End Using
+
 	End Sub
-
-	Protected Sub btnCargar_Click(ByVal sender As Object, ByVal e As EventArgs)
-		'If fileUpload1.HasFile Then
-		'	Try
-		'		' Guardar el archivo en una carpeta del servidor
-		'		Dim fileName As String = Path.GetFileName(fileUpload1.PostedFile.FileName)
-		'		Dim filePath As String = Server.MapPath("~/Imagenes/") & fileName
-		'		fileUpload1.SaveAs(filePath)
-
-		'		' Actualizar el control de imagen para mostrar la imagen seleccionada
-		'		imgMostrar.ImageUrl = "~/Imagenes/" & fileName
-
-		'		' Mostrar un mensaje de éxito
-		'		lblMensaje.Text = "Imagen cargada exitosamente."
-		'		lblMensaje.ForeColor = System.Drawing.Color.Green
-		'	Catch ex As Exception
-		'		' Manejar el error
-		'		lblMensaje.Text = "Error al cargar la imagen: " & ex.Message
-		'		lblMensaje.ForeColor = System.Drawing.Color.Red
-		'	End Try
-		'Else
-		'	lblMensaje.Text = "Por favor, seleccione una imagen para cargar."
-		'	lblMensaje.ForeColor = System.Drawing.Color.Red
-		'End If
-	End Sub
-
 
 End Class

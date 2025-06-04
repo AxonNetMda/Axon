@@ -140,13 +140,15 @@
 <div class="modal fade" id="MdlAtencion" tabindex="-1" role="dialog" aria-labelledby="myMdlAtencion" data-bs-backdrop="static" style="display:none">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header text-bg-dark">
-        <h5 class="modal-title">ATENCION</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header bg-danger text-bg-dark">
+        <h5 class="modal-title">ANULAR COMPRA</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
             <asp:Label runat="server" id="lblMensajeAtencion" CssClass="form-label" Text=""></asp:Label>
+          <p>prueba</p>
       </div>
       <div class="modal-footer">
+           <asp:button runat="server" ID="btnAceptarMDLBorrar" class="btn btn-primary" data-bs-dismiss="modal" Text="Aceptar"></asp:button>  
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
       </div>

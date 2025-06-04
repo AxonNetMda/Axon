@@ -15,9 +15,6 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server" >
-            <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("login.aspx?idUsuario=0")
-            End If %>
 
     <div class="container" autocomplete="off">
          <div class="card shadow-lg border-0 rounded-lg mt-xxl-auto"s>

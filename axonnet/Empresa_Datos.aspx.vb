@@ -7,6 +7,11 @@ Partial Class Empresa_Datos
     Private connectionString As String = conectar.Cadena
 
     Private Sub Empresa_Datos_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx?idUsuario=0")
+        End If
         If Not IsPostBack Then
             CargarDatos()
         End If

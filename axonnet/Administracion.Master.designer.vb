@@ -32,33 +32,6 @@ Partial Public Class SiteMaster
     Protected WithEvents masterForm As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''Control hdfIdUsuario.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents hdfIdUsuario As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''Control hdfIdRol.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents hdfIdRol As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''Control hdfidSucursal.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents hdfidSucursal As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
     '''Control ScriptManager1.
     '''</summary>
     '''<remarks>

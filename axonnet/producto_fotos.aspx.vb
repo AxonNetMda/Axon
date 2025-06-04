@@ -16,6 +16,10 @@ Public Class producto_fotos
     Dim ImgProductoDefault As String = My.Settings.imgProductoDefault
     Dim CarpetaImagen As String = ImgCarpetaProductos & "/" & ImgProductoDefault
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If IsPostBack Then
 
         Else
@@ -26,7 +30,7 @@ Public Class producto_fotos
             nidProducto = Request.QueryString("idproducto")
             lblTitulo.Text = sTitulo
             Dim i As Integer = 0
-
+            Dim timestamp As String = DateTime.Now.Ticks.ToString()
             hNombreImagen1.Value = ImgProductoDefault
             hNombreImagen2.Value = ImgProductoDefault
             hNombreImagen3.Value = ImgProductoDefault
@@ -71,12 +75,12 @@ Public Class producto_fotos
                 Dim valorCelda As Integer
                 If listaprod.Count > 0 Then
                     lblNombre.Text = listaprod(0).idProducto & " " & listaprod(0).Nombre
-                    lblimagen1.Text = listaprod(0).NombreFoto1
-                    lblimagen2.Text = listaprod(0).NombreFoto2
-                    lblimagen3.Text = listaprod(0).NombreFoto3
-                    lblimagen4.Text = listaprod(0).NombreFoto4
-                    lblimagen5.Text = listaprod(0).NombreFoto5
-                    lblimagen6.Text = listaprod(0).NombreFoto6
+                    lblimagen1.Text = listaprod(0).NombreFoto1 & "?v=" & timestamp
+                    lblimagen2.Text = listaprod(0).NombreFoto2 & "?v=" & timestamp
+                    lblimagen3.Text = listaprod(0).NombreFoto3 & "?v=" & timestamp
+                    lblimagen4.Text = listaprod(0).NombreFoto4 & "?v=" & timestamp
+                    lblimagen5.Text = listaprod(0).NombreFoto5 & "?v=" & timestamp
+                    lblimagen6.Text = listaprod(0).NombreFoto6 & "?v=" & timestamp
                     lblimagen7.Text = listaprod(0).NombreFoto7
                     lblimagen8.Text = listaprod(0).NombreFoto8
                     lblimagen9.Text = listaprod(0).NombreFoto9
@@ -185,22 +189,40 @@ Public Class producto_fotos
                 Exit Function
             Else
                 Try
+
+
                     ' Obtener la extensión del archivo
                     Dim extension As String = Path.GetExtension(sFileupload.FileName).ToLower()
 
                     ' Validar la extensión de la imagen
                     If extension = ".jpg" OrElse extension = ".jpeg" OrElse extension = ".png" OrElse extension = ".gif" Then
+
+
                         ' Generar un nuevo nombre para la imagen
-                        Dim nuevoNombre As String = nprod.ToString().PadLeft(5, "0"c) & "_" & Numerofoto.ToString().PadLeft(5, "0"c) & "_" & Numerofoto & extension
+                        Dim nuevoNombre As String = nprod.ToString().PadLeft(5, "0"c) & "_" & Numerofoto.ToString().PadLeft(5, "0"c) & extension
                         sNombreImagen = nuevoNombre
                         ' Definir la ruta de la carpeta donde se guardará la imagen
+                        ' Combinar la ruta de la carpeta con el nuevo nombre de la imagen
+                        Dim rutaCompleta As String = Path.Combine(targetDirectory, nuevoNombre)
+
+                        ' Eliminar imagen anterior si no es la imagen por defecto
+                        Dim rutaAnterior As String = Path.Combine(targetDirectory, sNombreImagen)
+                        If sNombreImagen <> ImgProductoDefault AndAlso File.Exists(rutaAnterior) Then
+                            Try
+                                File.Delete(rutaAnterior)
+                            Catch ex As Exception
+                                lblMensajeAtencion.Text = "No se pudo eliminar la imagen anterior: " & ex.Message
+                            End Try
+                        End If
 
                         If Not Directory.Exists(targetDirectory) Then
                             Directory.CreateDirectory(targetDirectory)
+                        Else
+
                         End If
 
                         ' Combinar la ruta de la carpeta con el nuevo nombre de la imagen
-                        Dim rutaCompleta As String = Path.Combine(targetDirectory, nuevoNombre)
+                        'Dim rutaCompleta As String = Path.Combine(targetDirectory, nuevoNombre)
 
                         ' Guardar la imagen en la carpeta especificada
                         sFileupload.SaveAs(rutaCompleta)

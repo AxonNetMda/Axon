@@ -185,7 +185,7 @@ Public Class Compras_Emision
             End If
         Else
             If cboConIVaSinIVa.SelectedValue = 0 Then
-                If CDbl(txtNetoGravado.Text) = CDbl(lblTotal.Text) Then
+                If CDbl(txtImporteFactura.Text) = CDbl(lblTotal.Text) Then
                     lblMEnsajeCompra.Text = "Desea Guardar el comprobante?"
                     script = "$(function() { showModalGuardar(); }); "
                 Else
@@ -203,7 +203,7 @@ Public Class Compras_Emision
             End If
         End If
 
-        If CDbl(txtNetoGravado.Text) = CDbl(lblTotal.Text) Then
+        If CDbl(txtImporteFactura.Text) = CDbl(lblTotal.Text) Then
             lblMEnsajeCompra.Text = "Desea Guardar el comprobante?"
             script = "$(function() { showModalGuardar(); }); "
         Else
@@ -219,6 +219,7 @@ Public Class Compras_Emision
         dtDetalleFactura.Columns.Add("Cantidad", GetType(Integer))
         dtDetalleFactura.Columns.Add("Precio", GetType(Decimal))
         dtDetalleFactura.Columns.Add("AlicuotaIva", GetType(Decimal))
+        dtDetalleFactura.Columns.Add("ImporteIVA", GetType(Decimal))
         dtDetalleFactura.Columns.Add("Subtotal", GetType(Decimal))
 
         ' Guardar en ViewState para mantener los datos durante los postbacks
@@ -242,6 +243,7 @@ Public Class Compras_Emision
                     dtDetalleFactura.Rows(i).Item("Precio") = FormatNumber(txtPrecioUnitario.Text, 2)
                     dtDetalleFactura.Rows(i).Item("AlicuotaIVA") = txtAlicuotaIVA.Text
                     dtDetalleFactura.Rows(i).Item("Cantidad") = txtCantidad.Text
+                    dtDetalleFactura.Rows(i).Item("ImporteIVA") = (CDbl(txtPrecioUnitario.Text) * (CDbl(txtAlicuotaIVA.Text) / 100)) * Val(txtCantidad.Text)
                     dtDetalleFactura.Rows(i).Item("Subtotal") = FormatNumber(CDbl(txtPrecioUnitario.Text) * Val(txtCantidad.Text), 2)
                     seguiR = False
                 End If
@@ -263,6 +265,7 @@ Public Class Compras_Emision
             Dim producto As Integer = Convert.ToInt32(lista(0).idProducto)
             Dim Descripcion As String = lista(0).Nombre
             Dim cantidad As Integer = Convert.ToInt32(txtCantidad.Text)
+
             Dim precioUnitario As Decimal = Convert.ToDecimal(txtPrecioUnitario.Text)
             Dim alicuotaIVA As Decimal = lista(0).AlicuotaIVA
             Dim subtotal As Decimal = cantidad * precioUnitario
@@ -272,6 +275,7 @@ Public Class Compras_Emision
             dr("idProducto") = txtidproducto.Value
             dr("Descripcion") = Descripcion
             dr("Cantidad") = cantidad
+            dr("ImporteIVA") = precioUnitario * (alicuotaIVA / 100)
             dr("Precio") = FormatNumber(precioUnitario, 2)
             dr("AlicuotaIVA") = FormatNumber(alicuotaIVA, 2)
             dr("Subtotal") = FormatNumber(subtotal, 2)
@@ -332,7 +336,7 @@ Public Class Compras_Emision
         dt.Columns.Add("AlicuotaIVA")
 
         Dim ssql As String
-        ssql = "SELECT dbo.producto.idProducto, dbo.producto.Nombre as Descripcion, dbo.preciodeventa(PrecioCosto, AlicuotaIVA,Ganancia) as Precio, dbo.producto.AlicuotaIVA                     
+        ssql = "SELECT dbo.producto.idProducto, dbo.producto.Nombre as Descripcion, dbo.preciodeventa2(PrecioCosto, AlicuotaIVA, Ganancia) as Precio, dbo.producto.AlicuotaIVA                     
                 FROM dbo.producto WHERE dbo.producto.estado<>0  ORDER BY dbo.producto.Nombre"
         Dim ocn As New SqlConnection(conectar.Cadena)
         Dim da As New SqlDataAdapter(ssql, ocn)
@@ -527,6 +531,7 @@ Public Class Compras_Emision
                     Dim script As String
                     script = "$(function() { showModalAtencion(); }); "
                     ScriptManager.RegisterStartupScript(Me, Page.GetType(), "editmdl", script, True)
+                    Response.Redirect("compras_lista.aspx")
                 Else
                     Response.Redirect("compras_lista.aspx")
                 End If

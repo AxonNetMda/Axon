@@ -14,31 +14,23 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-        <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
-  
+     
 
      <div class="container-fluid px-4">
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="Default.aspx">ADMINISTRACION</a></li>
+            <li class="breadcrumb-item"><a href="DefaultAdmin.aspx">ADMINISTRACION</a></li>
             <li class="breadcrumb-item active">Productos</li>
         </ol>
-        <div class="card mb-4">
-            <div class="card-header">
-                <asp:Button runat="server" ID="BtnNuevo" CssClass="btn btn-primary" Text="Nuevo producto" />
-            </div>                             
-        </div>
+        
         <div class="card mb-4">
              <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 LISTADO DE PRODUCTOS
-                  <div class="col-md-3">
-                            <div id="divSucursal" runat="server" class="form-floating mb-3">
-                                <asp:DropDownList runat="server" CssClass="form-control text-danger" id="cboSucursal" Width="300" Font-Bold="true" AutoPostBack="true"></asp:DropDownList>
-                                <label for="cboSucursal">Sucursal</label>                                
-                            </div>                          
-                        </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <asp:Button runat="server" ID="BtnNuevo" CssClass="btn btn-primary" Text="Nuevo producto" />
+                </div>                             
             </div>
              <div class="card-body">
                    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
@@ -71,9 +63,11 @@
 											<ItemStyle HorizontalAlign="Right" />
 											</asp:BoundField>
                                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
+                                            <asp:BoundField DataField="NombreCategoria" HeaderText="Categoria" SortExpression="NombreCategoria" />
                                             <asp:BoundField DataField="NombreMarca" HeaderText="Marca" SortExpression="NombreMarca" />
+                                             
                                             <asp:BoundField DataField="RazonSocial" HeaderText="Proveedor" SortExpression="RazonSocial" />                                           
-                                            <asp:BoundField DataField="StockCritico" HeaderText="Stock Critico" SortExpression="StockCritico" >
+                                            <asp:BoundField DataField="StockCritico" HeaderText="Stock Critico" SortExpression="StockCritico" Visible="false" >
                                             <ItemStyle HorizontalAlign="Right" VerticalAlign="Middle" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="PrecioVenta" HeaderText="Precio" SortExpression="PrecioVenta" DataFormatString="{0:C2}" >

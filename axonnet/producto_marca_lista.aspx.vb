@@ -15,6 +15,10 @@ Public Class producto_marca_lista
                                             ) ON [PRIMARY];
                                         END"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If Not IsPostBack Then
             Dim script As String
             Dim mensaje As String = VerificarYCrearTabla(verificaTabla)

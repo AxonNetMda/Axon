@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Administracion.Master" CodeBehind="moneda_lista_ABM.aspx.vb" Inherits="axonnet.moneda_lista_ABM" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <link href="css/check_css.css" rel="stylesheet" />
+  <link href="css/check_css.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
@@ -20,7 +23,7 @@
                                         <div class="form-group">
                                             <div class="form-floating mb-3">
                                                 <asp:TextBox runat="server" class="form-control" id="txtNombre"></asp:TextBox>
-                                                <label for="inputSucursal">Nombre de la Sucursal</label>                                   
+                                                <label for="txtNombre">Moneda</label>                                   
                                             </div>
                                         </div>
                                         <div class="form-group">

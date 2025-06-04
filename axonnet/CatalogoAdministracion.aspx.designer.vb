@@ -23,15 +23,6 @@ Partial Public Class CatalogoAdministracion
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''Control nCantidad.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents nCantidad As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
     '''Control productosContainer.
     '''</summary>
     '''<remarks>
@@ -39,22 +30,4 @@ Partial Public Class CatalogoAdministracion
     '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
     '''</remarks>
     Protected WithEvents productosContainer As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
-    '''Control BtnInfo.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents BtnInfo As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Control btnAgregarCarrito.
-    '''</summary>
-    '''<remarks>
-    '''Campo generado automáticamente.
-    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-    '''</remarks>
-    Protected WithEvents btnAgregarCarrito As Global.System.Web.UI.WebControls.Button
 End Class

@@ -6,12 +6,12 @@ Public Class CatalogoAdministracion
     Public Property nCantidadCarrito As Integer
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If IsPostBack Then
-            nCantidad.Value += 1
-            nCantidadCarrito = nCantidad.Value
+            'nCantidad.Value += 1
+            'nCantidadCarrito = nCantidad.Value
 
         Else
             Dim query As String = "SELECT dbo.producto.idProducto, dbo.producto.Nombre as NombreProducto, dbo.producto_Stock.StockActual, 
-                            dbo.preciodeventa(producto.PrecioCosto,  producto.AlicuotaIVA, producto.Ganancia) as PrecioVenta, 
+                            dbo.preciodeventa2(producto.PrecioCosto,  producto.AlicuotaIVA, producto.Ganancia) as PrecioVenta, 
                             dbo.producto.RutaImagen, dbo.producto.nombreFoto1, dbo.producto.EsDestacado, dbo.producto.EsOferta
                             FROM dbo.producto
                             INNER JOIN dbo.producto_Stock ON dbo.producto.idProducto = dbo.producto_Stock.idProducto
@@ -35,9 +35,22 @@ Public Class CatalogoAdministracion
             Next
             nCantidadCarrito = 0
         End If
+        If Not Page.IsPostBack Then
+            ' Asegurar que las variables estén cargadas
+            If Session("sNombreUsuario") Is Nothing Then
+                Session("sNombreUsuario") = "Invitado"
+            End If
+
+            'If Session("Carrito") Is Nothing Then
+            '    Session("Carrito") = New List(Of CarritoItem)()
+            'End If
+        End If
     End Sub
 
-    Protected Sub btnAgregarCarrito_Click(sender As Object, e As EventArgs) Handles btnAgregarCarrito.Click
-        'nCantidad.Value += 1
-    End Sub
+    'Protected Sub btnAgregarCarrito_Click(sender As Object, e As EventArgs) Handles btnAgregarCarrito.Click
+    '    'nCantidad.Value += 1
+    'End Sub
+End Class
+
+Friend Class CarritoItem
 End Class

@@ -11,6 +11,10 @@ Public Class producto_stock_ajustes
     Dim dblPrecioCosto As Decimal = 0
     Dim dblPrecioVenta As Decimal = 0
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") = "" Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If Not IsPostBack Then
             nidProducto = Request.QueryString("Idproducto")
             nIdSucursal = Request.QueryString("idSucursal")

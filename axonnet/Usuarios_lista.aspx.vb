@@ -1,8 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
-Imports System.Windows.Forms
-Imports capaAdministracion.funciones
-Imports capaAdministracion.MisFunciones
+Imports axonnet.funciones
+Imports axonnet.MisFunciones
 Imports CapaDatos
 Imports capaEntidad
 
@@ -11,60 +10,18 @@ Public Class Usuarios_lista
     Public Property scomando As String
     Public Property sMensaje As String
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
 
 
-        'If IsPostBack AndAlso fileUpload1.HasFile Then
-        '    Try
-        '        ' Guardar el archivo en una carpeta del servidor
-        '        Dim fileName As String = Path.GetFileName(fileUpload1.PostedFile.FileName)
-        '        Dim filePath As String = Server.MapPath("~/Imagenes/") & fileName
-        '        fileUpload1.SaveAs(filePath)
-
-        '        ' Actualizar el control de imagen para mostrar la imagen seleccionada
-        '        imgMostrar.ImageUrl = "Imagenes/" & fileName
-
-        '        ' Actualizar el control de etiqueta con el nombre de la imagen seleccionada
-        '        lblNombreImagen.Text = "Nombre de la Imagen: " & fileName
-
-        '        ' Mensaje de éxito
-        '        lblNombreImagen.ForeColor = System.Drawing.Color.Green
-        '    Catch ex As Exception
-        '        ' Manejar el error
-        '        lblNombreImagen.Text = "Error al subir la imagen: " & ex.Message
-        '        lblNombreImagen.ForeColor = System.Drawing.Color.Red
-        '    End Try
-        '    'LoadImages()
-        'Else
-        'End If
         scomando = "SELECT  usuario.idUsuario, usuario.Nombre, usuario.Domicilio, usuario.CodigoPostal, usuario.localidad, usuario.provincia, 
                             usuario.celular,  usuario.Email, usuario.Clave, usuario.idRol, rol.Nombre AS RolNombre,usuario.Estado, 
 		                    isnull(FotoNombre,'no-image.jpg') as FotoNombre, isnull(FotoPath,'Imagenes/') as FotoPath
 	                        FROM usuario INNER JOIN rol ON usuario.idRol = rol.idRol"
         SqlUsuarios.SelectCommand = scomando
         If Not IsPostBack Then
-            '    ' Establecer la imagen actual desde el servidor
-            '    imgMostrar.ImageUrl = "Imagenes/no-image.jpg" ' Ruta de la imagen actual
-            '    sMensaje = ""
-            '    Dim i As Integer = 0
-            '    Dim listarol As List(Of rol) = New CD_Rol().Listar
-            '    For Each item As rol In listarol
-            '        cboRol.Items.Insert(i, New ListItem(item.Nombre, item.idRol))
-            '        i += 1
-            '    Next
 
-            '    cboRol.DataTextField = "Nombre"
-            '    cboRol.DataValueField = "idRol"
-            '    cboRol.SelectedIndex = 0
-
-            '    cboEstado.Items.Insert(0, New ListItem("Activo", 1))
-            '    cboEstado.Items.Insert(1, New ListItem("No Activo", 0))
-            '    cboEstado.DataTextField = "Activo"
-            '    cboEstado.DataValueField = 1
-            '    cboEstado.SelectedIndex = 0
-
-            '    'dgvData.DataSource = sComando
-            '    'dgvData.DataBind()
-            'BindGridView()
         Else
 
         End If

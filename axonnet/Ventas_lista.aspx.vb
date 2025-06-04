@@ -330,7 +330,7 @@ Public Class Ventas_lista
                 .AlicuotaIVA105 = 0,
                 .AlicuotaIVA21 = 0,
                 .AlicuotaIVA27 = 0,
-                .oMaestroDetalle = detalles,
+                .tbDetalleRepo = MaestroMovimientosdetalle,
                 .Comprobante = "REP-" & nSuc.ToString().PadLeft(4, "0"c) & "-" & nNumerpComprobante.ToString().PadLeft(8, "0"c),
                 .ImpuestosInternos = 0,
                 .PercepcionIngresosBrutos = 0,

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="Adminitracion.Master" CodeBehind="Usuarios_lista.aspx.vb" Inherits="axonnet.Usuarios_lista" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Administracion.Master" CodeBehind="Usuarios_lista.aspx.vb" Inherits="axonnet.Usuarios_lista" %>
 <%@ Import Namespace="System.Data.SqlClient" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Web" %>

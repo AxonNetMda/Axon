@@ -22,6 +22,10 @@ Public Class producto_inventario
     Dim idProducto As Integer = 2
     Dim sDesdeDonde As String = ""
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If IsPostBack Then
             'listsuc = New CN_Sucursal().Listar(0)
             If sDesdeDonde = "STK" Then
@@ -44,6 +48,8 @@ Public Class producto_inventario
             fecHasta.Attributes("value") = DateTime.Now.ToString("yyyy-MM-dd")
             fechaDesde = DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd")
             fechaHasta = DateTime.Now.ToString("yyyy-MM-dd")
+            fecDesde.Text = Date.Parse(fechaDesde).ToString("yyyy-MM-dd")
+            fecHasta.Text = Date.Parse(fechaHasta).ToString("yyyy-MM-dd")
             If sDesdeDonde = "STK" Then
                 ' vengo desde la pagina de producto_stock_listado.aspx
                 divNombreSucursalMostrar.Visible = True
@@ -111,84 +117,33 @@ Public Class producto_inventario
         'DECLARE @fechahasta DATE = '2024-12-31';
         ' Definir la consulta SQL con saldo inicial y saldo acumulado
         scomando = "DECLARE @SaldoAnterior DECIMAL(18,2)
-                                    SELECT @SaldoAnterior = COALESCE(SUM(CantidadEntrada + CantidadSalida), 0.00) 
-                                    FROM dbo.producto_inventario
-                                    WHERE idSucursal = " & idSucursal & "
-                                    AND idProducto =" & idProducto & " 
-                                    AND fecFecha < '" & fechaDesde.ToString("yyyy-MM-dd") & "';
-                                    WITH Movimientos AS (
-                                    SELECT  
-                                    pi.fecFecha, 
-                                    ito.nombre AS Detalle, 	
-		                            (pi.PrecioEntrada + pi.PrecioSalida) AS PrecioUnitario, 
-                                    pi.CantidadEntrada AS Entrada, 
-                                    pi.CantidadSalida AS Salida, 
-                                    COALESCE(pr.RazonSocial, c.Nombre, 'AJUSTE DE STOCK INTERNO') AS ClienteProveedor
-                                FROM dbo.producto_inventario pi
-                                INNER JOIN dbo.producto_inventario_tipo_operacion ito ON pi.TipoOperacion = ito.idTipoOperacionInventario
-                                LEFT JOIN dbo.proveedor pr ON pi.idProveedor = pr.idProveedor
-                                LEFT JOIN dbo.cliente c ON pi.idCliente = c.idCliente
-                                WHERE pi.idSucursal =" & idSucursal & " 
-                                  AND pi.idProducto = " & idProducto & " 
-                                  AND pi.fecFecha BETWEEN '" & fechaDesde.ToString("yyyy-MM-dd") & "' AND '" & fechaHasta.ToString("yyyy-MM-dd") & "'
-                            )
+                    SELECT @SaldoAnterior = COALESCE(SUM(CantidadEntrada - CantidadSalida), 0.00) 
+                    FROM dbo.producto_inventario
+                    WHERE idSucursal =" & cboSucursal.SelectedValue & " 
+                    AND idProducto =" & cboProducto.SelectedValue & " 
+                    AND fecFecha < '" & fecDesde.Text & " ';
+                    WITH Movimientos AS (
+                    SELECT  
+                    pi.fecFecha, 
+                    ito.nombre AS Detalle, 	
+		            (pi.PrecioEntrada + pi.PrecioSalida) AS PrecioUnitario, 
+                    pi.CantidadEntrada AS Entrada, 
+                    pi.CantidadSalida AS Salida, 
+                    COALESCE(pr.RazonSocial, c.Nombre, 'AJUSTE DE STOCK INTERNO') AS ClienteProveedor
+                    FROM dbo.producto_inventario pi
+                    INNER JOIN dbo.producto_inventario_tipo_operacion ito ON pi.TipoOperacion = ito.idTipoOperacionInventario
+                    LEFT JOIN dbo.proveedor pr ON pi.idProveedor = pr.idProveedor
+                    LEFT JOIN dbo.cliente c ON pi.idCliente = c.idCliente
+                    WHERE pi.idSucursal =" & cboSucursal.SelectedValue & "  AND pi.idProducto = " & cboProducto.SelectedValue & " AND pi.fecFecha BETWEEN '" & fecDesde.Text & "' AND '" & fecHasta.Text & "')
+                    SELECT fecFecha, Detalle, PrecioUnitario, Entrada, Salida, SUM(COALESCE(Entrada, 0) - COALESCE(Salida, 0)) 
+                           OVER (ORDER BY fecFecha ROWS UNBOUNDED PRECEDING) + @SaldoAnterior AS Saldo, ClienteProveedor
+                    FROM Movimientos
+                    UNION ALL
+                   SELECT DATEADD(DAY, -1, '" & fecDesde.Text & "') AS fecFecha, 'Saldo anterior' AS Detalle, 0 AS PrecioUnitario, 
+                          0 AS Entrada, 0 AS Salida, @SaldoAnterior AS Saldo,'' AS ClienteProveedor
+                   ORDER BY fecFecha ASC;"
 
-                            SELECT 
-                                fecFecha, 
-                                Detalle, 
-                                PrecioUnitario, 
-                                Entrada, 
-                                Salida, 
-                                SUM(COALESCE(Entrada, 0) + COALESCE(Salida, 0)) 
-                                    OVER (ORDER BY fecFecha ROWS UNBOUNDED PRECEDING) + @SaldoAnterior AS Saldo,
-                                ClienteProveedor
-                            FROM Movimientos
 
-                            UNION ALL
-
-                            SELECT 
-                                DATEADD(DAY, -1, '" & fechaDesde.ToString("yyyy-MM-dd") & "') AS fecFecha, 
-                                'Saldo anterior' AS Detalle, 
-                                0 AS PrecioUnitario, 
-                                0 AS Entrada, 
-                                0 AS Salida, 
-                                @SaldoAnterior AS Saldo,
-                                '' AS ClienteProveedor
-                            ORDER BY fecFecha ASC;"
-
-        ' Crear el comando SQL
-        'scomando = consulta
-        'Dim cmd As New SqlCommand(scomando, conexion)
-        'cmd.Parameters.AddWithValue("@idSucursal", idSucursal)
-        'cmd.Parameters.AddWithValue("@idProducto", idProducto)
-        'cmd.Parameters.AddWithValue("@fechaDesde", fechaDesde)
-        'cmd.Parameters.AddWithValue("@fechaHasta", fechaHasta)
-
-        '' Cargar los datos en un DataTable
-        'Dim dt As New DataTable()
-        'Dim adapter As New SqlDataAdapter(cmd)
-        'adapter.Fill(dt)
-
-        '' Obtener saldo inicial
-        'Dim saldoInicial As Decimal = 0
-        'If dt.Rows.Count > 0 Then
-        '    saldoInicial = Convert.ToDecimal(dt.Rows(0)("Saldo"))
-        'End If
-
-        '' Agregar la fila de saldo inicial
-        'Dim filaSaldoInicial As DataRow = dt.NewRow()
-        'filaSaldoInicial("fecFecha") = DBNull.Value  ' Sin fecha
-        'filaSaldoInicial("Detalle") = "Saldo Inicial"
-        'filaSaldoInicial("NombreProveedorCliente") = "-"
-        'filaSaldoInicial("CantidadEntrada") = DBNull.Value
-        'filaSaldoInicial("PrecioEntrada") = DBNull.Value
-        'filaSaldoInicial("CantidadSalida") = DBNull.Value
-        'filaSaldoInicial("PrecioSalida") = DBNull.Value
-        'filaSaldoInicial("NombreOperacion") = "-"
-        'filaSaldoInicial("Saldo") = saldoInicial
-
-        '' Insertar la fila al inicio
-        'dt.Rows.InsertAt(filaSaldoInicial, 0)
         sqlProducto.SelectCommand = scomando
             dgvData.PageSize = cboMostrar.SelectedValue
             dgvData.DataBind()
@@ -196,6 +151,6 @@ Public Class producto_inventario
     End Sub
 
     Protected Sub btnVolver_Click(sender As Object, e As EventArgs)
-
+        Response.Redirect("~/DefaultAdmin.apsx")
     End Sub
 End Class

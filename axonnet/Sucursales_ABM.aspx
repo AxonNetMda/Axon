@@ -15,9 +15,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-     <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
+
   <link href="css/check_css.css" rel="stylesheet" />
      <div class="container">
            <div class="row justify-content-center">

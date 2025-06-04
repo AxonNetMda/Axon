@@ -16,6 +16,10 @@ Public Class Repisiciones_Emision
     Dim valorCelda As Integer
     Dim listrepo As List(Of sucursal)
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If IsPostBack Then
             If Trim(txtBuscar.Text) <> "" Then
                 filtro = " WHERE dbo.producto_Stock.idSucursal=1 AND producto.Nombre LIKE '%" & txtBuscar.Text & "%' or proveedor.RazonSocial LIKE '%" & txtBuscar.Text & "%' or producto_marca.Nombre LIKE '%" & txtBuscar.Text & "%'"
@@ -170,11 +174,11 @@ Public Class Repisiciones_Emision
         ElseIf e.CommandName = "Ajuste" Then
             Dim indice As Integer
             indice = Convert.ToInt32(e.CommandArgument)
-            lblIdProducto.Text = dgvData.Rows(indice).Cells(0).Text
-            lblSucursal.Text = cboSucursal.SelectedItem.Text
-            lblProductoMDL.Text = dgvData.Rows(indice).Cells(1).Text
-            lblStock.Text = dgvData.Rows(indice).Cells(3).Text
-            txtCantidadMDL.Text = 0
+            'lblIdProducto.Text = dgvData.Rows(indice).Cells(0).Text
+            'lblSucursal.Text = cboSucursal.SelectedItem.Text
+            'lblProductoMDL.Text = dgvData.Rows(indice).Cells(1).Text
+            'lblStock.Text = dgvData.Rows(indice).Cells(3).Text
+            'txtCantidadMDL.Text = 0
             script = "$(function() { showModalAjuste(); }); "
             ScriptManager.RegisterStartupScript(Me, Page.GetType(), "editmdl", script, True)
         ElseIf e.CommandName = "Eliminar" Then
@@ -243,10 +247,9 @@ Public Class Repisiciones_Emision
         dgvRepo.DataBind()
     End Sub
     Protected Sub BtnGuardarRepo_Click(sender As Object, e As EventArgs) Handles BtnGuardarRepo.Click
-        Dim script As String
-        lblMensajeRepo.Text = "Guardar la reposicion?"
-        script = "$(function() { showModalReposicion(); }); "
-        ScriptManager.RegisterStartupScript(Me, Page.GetType(), "editmdl", script, True)
+        lblMensajeRepo.Text = "¿Guardar la reposición?"
+        Dim script As String = "showModalReposicion();"
+        ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showModalRepo", script, True)
     End Sub
 
     Protected Sub btnMDLGuardarReposicion_Click(sender As Object, e As EventArgs) Handles btnMDLGuardarReposicion.Click
@@ -268,18 +271,12 @@ Public Class Repisiciones_Emision
                 connection.Open()
                 Using command As New SqlCommand(procedureName, connection)
                     command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add("@Resultado", SqlDbType.Int).Direction = ParameterDirection.Output
+                    command.Parameters.Add("@Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output
                     command.ExecuteNonQuery()
                     Mensaje = command.Parameters("@Mensaje").Value.ToString()
                     resultado = Convert.ToInt32(command.Parameters("@Resultado").Value)
                 End Using
-
-                If resultado = 0 Then
-                    lblMensajeAtencion.Text = Mensaje
-                    Dim script As String
-                    script = "$(function() { showModalAtencion(); }); "
-                    ScriptManager.RegisterStartupScript(Me, Page.GetType(), "editmdl", script, True)
-                    Exit Sub
-                End If
 
             Catch ex As Exception
                 lblMensajeAtencion.Text = ex.Message
@@ -290,21 +287,7 @@ Public Class Repisiciones_Emision
             End Try
         End Using
 
-        '     CREATE Type [tbDetalleInventario] AS TABLE (
-        '         idProducto Int,
-        '         idSucursal int,
-        '         fecFecha Date,
-        '         Detalle varchar(200),
-        '         idProveedor Int,
-        '         CantidadEntrada Decimal,
-        '         PrecioEntrada Decimal,
-        '         idCliente int,
-        '         CantidadSalida Decimal,
-        '         PrecioSalida Decimal,
-        '         FechaActualizado Date,
-        '         idUsuario int, 
-        '         TipoOperacion Int,
-        '         Referencia varchar(50))
+
         procedureName = "CrearType_tbDetalleInventario"
         resultado = 0
         Mensaje = ""
@@ -314,18 +297,12 @@ Public Class Repisiciones_Emision
                 connection.Open()
                 Using command As New SqlCommand(procedureName, connection)
                     command.CommandType = CommandType.StoredProcedure
+                    command.Parameters.Add("@Resultado", SqlDbType.Int).Direction = ParameterDirection.Output
+                    command.Parameters.Add("@Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output
                     command.ExecuteNonQuery()
-                    mensaje = command.Parameters("@Mensaje").Value.ToString()
+                    Mensaje = command.Parameters("@Mensaje").Value.ToString()
                     resultado = Convert.ToInt32(command.Parameters("@Resultado").Value)
                 End Using
-
-                If resultado = 0 Then
-                    lblMensajeAtencion.Text = Mensaje
-                    Dim script As String
-                    script = "$(function() { showModalAtencion(); }); "
-                    ScriptManager.RegisterStartupScript(Me, Page.GetType(), "editmdl", script, True)
-                    Exit Sub
-                End If
 
             Catch ex As Exception
                 lblMensajeAtencion.Text = ex.Message
@@ -335,36 +312,48 @@ Public Class Repisiciones_Emision
                 Exit Sub
             End Try
         End Using
-        Dim referecia As String = Date.Now.Ticks
+        Dim referencia As String = Date.Now.Ticks
         Dim nNumerpComprobante As Integer = 0
         nNumerpComprobante = UltimoNumeroComprobante("Maestro_Movimientos_Cab", "NumeroComprobante", "REP")
         Try
             Dim objMovi As maestromovimiento
             Dim idgenerado As Integer = 0
             Mensaje = ""
+            nUsuario = Session("IdUsuario")
+            'Dim detalles As New List(Of maestromovimiento_detalle)
+            Dim tbDetalleRepo As New DataTable
+            tbDetalleRepo.Columns.Add("idCompra", GetType(Integer))
+            tbDetalleRepo.Columns.Add("idProducto", GetType(Integer))
+            tbDetalleRepo.Columns.Add("Cantidad", GetType(Integer))
+            tbDetalleRepo.Columns.Add("PrecioUnitario", GetType(Decimal))
+            tbDetalleRepo.Columns.Add("ALicuotaIVA", GetType(Decimal))
+            tbDetalleRepo.Columns.Add("PrecioVetna", GetType(Decimal))
+            tbDetalleRepo.Columns.Add("Referencia", GetType(Decimal))
 
-            Dim detalles As New List(Of maestromovimiento_detalle)
-            Dim MaestroMovimientosdetalle As New DataTable
-            MaestroMovimientosdetalle.Columns.Add("idSucursal", GetType(Integer))
-            MaestroMovimientosdetalle.Columns.Add("idProducto", GetType(Integer))
-            MaestroMovimientosdetalle.Columns.Add("Cantidad", GetType(Integer))
-            MaestroMovimientosdetalle.Columns.Add("StockCritico", GetType(Integer))
-            MaestroMovimientosdetalle.Columns.Add("PrecioUnitario", GetType(Decimal))
-            MaestroMovimientosdetalle.Columns.Add("ALicuotaIVA", GetType(Decimal))
-            MaestroMovimientosdetalle.Columns.Add("PrecioVetna", GetType(Decimal))
-            MaestroMovimientosdetalle.Columns.Add("Referencia", GetType(String))
+            Dim tbDetalleInventario As New DataTable
+            tbDetalleInventario.Columns.Add("idDeSucursal", GetType(Integer))
+            tbDetalleInventario.Columns.Add("idASucursdal", GetType(Integer))
+            tbDetalleInventario.Columns.Add("idProducto", GetType(Integer))
+            tbDetalleInventario.Columns.Add("FecFecha", GetType(Date))
+            tbDetalleInventario.Columns.Add("Detalle", GetType(String))
+            tbDetalleInventario.Columns.Add("idProveedor", GetType(Integer))
+            tbDetalleInventario.Columns.Add("CantidadEntrada", GetType(Integer))
+            tbDetalleInventario.Columns.Add("PrecioEntrada", GetType(Decimal))
+            tbDetalleInventario.Columns.Add("idCliente", GetType(Integer))
+            tbDetalleInventario.Columns.Add("CantidadSalida", GetType(Integer))
+            tbDetalleInventario.Columns.Add("PrecioSalida", GetType(Decimal))
+            tbDetalleInventario.Columns.Add("FechaActualizacion", GetType(Date))
+            tbDetalleInventario.Columns.Add("IdUsuario", GetType(Integer))
+            tbDetalleInventario.Columns.Add("TipoOperacion", GetType(Integer))
+            tbDetalleInventario.Columns.Add("Referencia", GetType(String))
+
+
+
+
             For i = 0 To dgvRepo.Rows.Count - 1
-                MaestroMovimientosdetalle.Rows.Add(cboSucursal.SelectedValue, dgvRepo.Rows(i).Cells(0).Text, dgvRepo.Rows(i).Cells(2).Text, 0, dgvRepo.Rows(i).Cells(3).Text, 0, 0, referecia)
-                detalles.Add(New maestromovimiento_detalle With {
-               .idSucursal = cboSucursal.SelectedValue,
-               .IdProducto = Convert.ToInt32(dgvRepo.Rows(i).Cells(0).Text),
-               .Cantidad = Convert.ToInt32(dgvRepo.Rows(i).Cells(2).Text),
-               .stockcritico = 0,
-               .PrecioUnitario = Convert.ToDecimal(dgvRepo.Rows(i).Cells(3).Text),
-               .AlicuotaIVA = 0,
-               .PrecioVenta = 0,
-               .Referencia = referecia
-   })
+                tbDetalleRepo.Rows.Add(0, dgvRepo.Rows(i).Cells(0).Text, dgvRepo.Rows(i).Cells(2).Text, 0, dgvRepo.Rows(i).Cells(3).Text, 0, referencia)
+                tbDetalleInventario.Rows.Add(1, cboSucursal.SelectedValue, dgvRepo.Rows(i).Cells(0).Text, Date.Today, "Reposicion", 0, dgvRepo.Rows(i).Cells(2).Text, dgvRepo.Rows(i).Cells(3).Text,
+                                       0, dgvRepo.Rows(i).Cells(2).Text, dgvRepo.Rows(i).Cells(3).Text, Date.Today, nUsuario, 8, referencia)
             Next i
 
             objMovi = New maestromovimiento() With {
@@ -387,19 +376,20 @@ Public Class Repisiciones_Emision
                 .AlicuotaIVA105 = 0,
                 .AlicuotaIVA21 = 0,
                 .AlicuotaIVA27 = 0,
-                .oMaestroDetalle = detalles,
+                .tbDetalleRepo = tbDetalleRepo,
+                .tbtDetalleInventario = tbDetalleInventario,
                 .Comprobante = "REP-" & nSuc.ToString().PadLeft(4, "0"c) & "-" & nNumerpComprobante.ToString().PadLeft(8, "0"c),
                 .ImpuestosInternos = 0,
                 .PercepcionIngresosBrutos = 0,
                 .NoGravado = 0,
                 .ImporteTotal = 0,
-                .Referencia = referecia,
+                .Referencia = referencia,
                 .Notas = txtNotas.Text
               }
 
 
 
-            idgenerado = New CD_MaestroMovimiento().Registrar(objMovi, MaestroMovimientosdetalle, mensaje)
+            idgenerado = New CD_MaestroMovimiento().RegistrarRepo(objMovi, tbDetalleRepo, tbDetalleInventario, Mensaje)
 
             If idgenerado <> 0 Then
                 Dim script As String
@@ -431,60 +421,6 @@ Public Class Repisiciones_Emision
         End Try
 
 
-        'Using connection As New SqlConnection(conectar.Cadena)
-        '    connection.Open()
 
-        '    Iniciar una transacción
-        '    Dim transaction As SqlTransaction = connection.BeginTransaction()
-
-        '    Try
-        '        Insertar la cabecera de la reposicion
-        '        Dim queryFactura As String = "INSERT INTO reposiciones (idDeSucursal, idASucursal, Fecha, idusuario, Notas, Referencia) " &
-        '                                     "VALUES (@idDeSucursal, @idASucursal, @Fecha, @idusuario, @Notas, @Referencia); " &
-        '                                     "SELECT SCOPE_IDENTITY();"
-        '        Dim commandRepo As New SqlCommand(queryFactura, connection, transaction)
-        '        commandRepo.Parameters.AddWithValue("@idDeSucursal", 1)
-        '        commandRepo.Parameters.AddWithValue("@idASucursal", cboSucursal.SelectedValue)
-        '        commandRepo.Parameters.AddWithValue("@Fecha", DateTime.Parse(Date.Today))
-        '        commandRepo.Parameters.AddWithValue("@idusuario", Session("idUsuario"))
-        '        commandRepo.Parameters.AddWithValue("@Notas", txtNotas.Text)
-        '        commandRepo.Parameters.AddWithValue("@Referencia", referecia)
-
-        '        Obtener el ID de la factura recién insertada
-        '        Dim ReposicionID As Integer = Convert.ToInt32(commandRepo.ExecuteScalar())
-
-        '        Insertar los detalles de la factura
-        '        For I = 0 To dgvRepo.Rows.Count - 1
-        '            Dim queryDetalle As String = "INSERT INTO reposicionesDetalles (idReposicion, IdProducto, Cantidad)" &
-        '                                         "VALUES (@idReposicion, @idProducto, @Cantidad)"
-        '            Dim commandDetalle As New SqlCommand(queryDetalle, connection, transaction)
-        '            commandDetalle.Parameters.AddWithValue("@idReposicion", ReposicionID)
-        '            commandDetalle.Parameters.AddWithValue("@idproducto", dgvRepo.Rows(I).Cells(0).Text)
-        '            commandDetalle.Parameters.AddWithValue("@Cantidad", dgvRepo.Rows(I).Cells(2).Text)
-        '            commandDetalle.ExecuteNonQuery()
-
-        '            Dim queryDesde As String = "update producto_stock SET Cantidad-= @Cantidad WHERE idSucursal=@idDeSucursal AND idProducto=@idProducto)"
-        '            Dim commanddesde As New SqlCommand(queryDetalle, connection, transaction)
-        '            commandDetalle.Parameters.AddWithValue("@idSucursal", 1)
-        '            commandDetalle.Parameters.AddWithValue("@idproducto", dgvRepo.Rows(I).Cells(0).Text)
-        '            commandDetalle.Parameters.AddWithValue("@Cantidad", dgvRepo.Rows(I).Cells(2).Text)
-        '            commandDetalle.ExecuteNonQuery()
-
-
-        '        Next
-        '        Confirmar la transacción
-        '        transaction.Commit()
-        '        Response.Write("<script>alert('Reposicion guardada correctamente.');</script>")
-        '    Catch ex As Exception
-        '        Revertir la transacción en caso de error
-        '        transaction.Rollback()
-        '        Dim script As String
-        '        lblMensajeAtencion.Text = ex.Message
-        '        script = "$(function() { showModalAtencion(); }); "
-        '        ScriptManager.RegisterStartupScript(Me, Page.GetType(), "editmdl", script, True)
-        '    Finally
-        '        connection.Close()
-        '    End Try
-        'End Using
     End Sub
 End Class

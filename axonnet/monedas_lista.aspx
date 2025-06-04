@@ -4,38 +4,29 @@
 <%@ Import Namespace="capaNegocio" %>
 <%@ Import Namespace="System.data" %>
 <%@ Import Namespace="System.data.sqlclient" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="css/check_css.css" rel="stylesheet" />
+  <link href="css/check_css.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
   <link href="css/styles.css" rel="stylesheet" />
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
- 
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-   
-    <div id="layoutSidenav_content">
 
+<asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">   
+    <div id="layoutSidenav_content">
         <div class="container-fluid px-4">
-                        <h1 class="mt-4">Monedas</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="Default.aspx">ADMINISTRACION</a></li>
+                            <li class="breadcrumb-item"><a href="DefaultAdmin.aspx">ADMINISTRACION</a></li>
                             <li class="breadcrumb-item active">Monedas</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <asp:Button runat="server" ID="BtnNuevo" cssclass="btn btn-primary btn-sm" text="Nueva Moneda"/>  
-                            </div>
-                        </div>
-                        <%--<div class="card mb-4">
-                            <div class="card-body">
-                                LISTADO DE LAS SUCURSALES
-                            </div>
-                        </div>--%>
-                        <div class="card mb-4">
-                            <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 MONEDAS
+                            </div>
+                            <div class="container-fluid">
+                                <div class="card-header bg-white">
+                                    <asp:Button runat="server" ID="BtnNuevo" cssclass="btn btn-primary btn-sm" text="Nueva Moneda"/>  
+                                </div>
                             </div>
                             <div class="card-body">
                                  <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
@@ -100,12 +91,12 @@
     </div>
 
 
-
+<%--
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+        <script src="js/datatables-simple-demo.js"></script>--%>
 
 </asp:Content>

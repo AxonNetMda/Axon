@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Catalogo_Ficha.aspx.vb" Inherits="capaAdministracion.Catalogo_Ficha" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Catalogo_Ficha.aspx.vb" Inherits="axonnet.Catalogo_Ficha" %>
 
 <!DOCTYPE html>
 

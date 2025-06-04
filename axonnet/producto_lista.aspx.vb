@@ -49,7 +49,9 @@ Public Class producto_lista
             )
             ON [PRIMARY]"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
         nSuc = Session("idSucursal")
         If Not IsPostBack Then
             Dim script As String
@@ -59,11 +61,11 @@ Public Class producto_lista
                 script = "$(function() { showModalAtencion(); }); "
                 ScriptManager.RegisterStartupScript(Me, Page.GetType(), "mdlAtencion", script, True)
             Else
-                Dim listsuc As List(Of sucursal) = New CD_Sucursal().Listar(0)
-                For item = 0 To listsuc.Count - 1
-                    cboSucursal.Items.Insert(item, New ListItem(listsuc(item).Nombre, listsuc(item).idSucursal))
-                Next
-                cboSucursal.SelectedIndex = 0
+                'Dim listsuc As List(Of sucursal) = New CD_Sucursal().Listar(0)
+                'For item = 0 To listsuc.Count - 1
+                '    cboSucursal.Items.Insert(item, New ListItem(listsuc(item).Nombre, listsuc(item).idSucursal))
+                'Next
+                'cboSucursal.SelectedIndex = 0
             End If
             CargarDatosGridView()
         End If
@@ -79,13 +81,14 @@ Public Class producto_lista
         End If
         scomando = "SELECT producto.idProducto, producto.CodigoBarras, producto.Nombre, producto.idCategoria, producto.idSubCategoria,
                     producto.idMarca, producto.idProveedor, producto.PrecioCosto, producto.AlicuotaIVA, producto.Ganancia, 
-                    dbo.preciodeventa2(PrecioCosto, AlicuotaIVA, Ganancia) as PrecioVenta,
+                    dbo.preciodeventa2(PrecioCosto, AlicuotaIVA, Ganancia) as PrecioVenta, producto_categoria.Nombre as NombreCategoria, 
                     producto.Redondeo, dbo.producto.StockCritico, producto.rutaimagen, 
                     producto.nombrefoto1, producto.nombrefoto2, producto.nombrefoto2, producto.nombrefoto3, producto.nombrefoto4, producto.nombrefoto5, producto.nombrefoto6, 
                     producto.nombrefoto7, dbo.producto.nombrefoto8, dbo.producto.nombrefoto9, producto.nombrefoto10, producto.nombrefoto11, producto.nombrefoto12,
                     producto.notas, producto.fechaUltimacompra, producto.FechaCreacion, producto.Estado, producto_marca.Nombre AS NombreMarca, proveedor.RazonSocial,
                     dbo.producto.MostrarCatalogo
                     FROM dbo.producto
+                    LEFT JOIN producto_categoria ON producto.idcategoria = producto_categoria.idCategoria
                     LEFT JOIN producto_marca ON producto.idMarca = producto_marca.idMarca
                     LEFT JOIN proveedor ON producto.idProveedor = proveedor.idProveedor " & filtro & " ORDER BY producto.Nombre"
 

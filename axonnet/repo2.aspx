@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Administracion.Master" CodeBehind="repo2.aspx.vb" Inherits="axonnet.repo2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script src="Scripts/WebForms/MSAjax/MicrosoftAjax.js"></script>
+<%--     <script src="Scripts/WebForms/MSAjax/MicrosoftAjax.js"></script>
    <script src="Scripts/WebForms/MSAjax/MicrosoftAjaxWebForms.js"></script>
    <link href="css/styles.css" rel="stylesheet" />
     <link href="css/paraimagenes.css" rel="stylesheet" />
@@ -10,12 +10,16 @@
     <script src="js/datatables/jquery.dataTables.min.js"></script>
     <script src="js/datatables/jquery3701.js"></script>
     <link href="css/datatables/fixedHeader.dataTables.min.css" rel="stylesheet" />
-    <link href="css/datatables/jquery.dataTables.min.css" rel="stylesheet" />  
+    <link href="css/datatables/jquery.dataTables.min.css" rel="stylesheet" />  --%>+
+      <link href="css/check_css.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-              <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
   
  <div class="container-fluid px-4">
        <ol class="breadcrumb mb-4">
@@ -35,7 +39,7 @@
                           <ul class="navbar-nav">
                             <li class="nav-item">
                                  <asp:Button runat="server" ID="btnReponueva" cssclass="btn btn-outline-dark" PostBackUrl="Repisiciones_Emision.aspx" Text="Nueva Reposicion"/>&nbsp;
-                              <a class="btn btn-outline-dark" aria-current="page" href="Repisiciones_Emision.aspx">Nueva Reposicion</a>&nbsp;
+<%--                              <a class="btn btn-outline-dark" aria-current="page" href="Repisiciones_Emision.aspx">Nueva Reposicion</a>&nbsp;--%>
                             </li>                            
                             <li class="nav-item">
                               <a class="btn btn-success" href="Default.aspx">Volver</a>&nbsp;

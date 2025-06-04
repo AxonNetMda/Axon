@@ -68,6 +68,15 @@ Partial Public Class compras_lista
     Protected WithEvents lblMensajeAtencion As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''Control btnAceptarMDLBorrar.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents btnAceptarMDLBorrar As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Control btnAceptarMDLSave.
     '''</summary>
     '''<remarks>

@@ -16,6 +16,7 @@ Public Class producto_lista_ABM
     Dim HayError As Boolean = False
     Dim nidProducto As Integer
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         If IsPostBack Then
             CalcularImportes()
         Else
@@ -183,7 +184,7 @@ Public Class producto_lista_ABM
                     hNombreImagen11.Value = listaprod(0).NombreFoto11
                     hNombreImagen12.Value = listaprod(0).NombreFoto12
                     hRutaimagen1.Value = listaprod(0).rutaImagen
-                    imagen1.ImageUrl = listaprod(0).rutaImagen & "\" & listaprod(0).NombreFoto1
+                    imagen1.ImageUrl = "~\" & listaprod(0).rutaImagen & "\" & listaprod(0).NombreFoto1
                     imagen2.ImageUrl = listaprod(0).rutaImagen & "\" & listaprod(0).NombreFoto2
                     imagen3.ImageUrl = listaprod(0).rutaImagen & "\" & listaprod(0).NombreFoto3
                     imagen4.ImageUrl = listaprod(0).rutaImagen & "\" & listaprod(0).NombreFoto4
@@ -471,7 +472,7 @@ Public Class producto_lista_ABM
     End Sub
 
     Protected Function GuardarImagen(ByVal sFileupload As Object, ByVal sNombreImagen As String, ByVal Numerofoto As Integer, ByVal carpetadestino As String, ByVal img As Image) As String
-        Dim targetDirectory As String = Server.MapPath("~/" & carpetadestino & "/")
+        Dim targetDirectory As String = Server.MapPath(carpetadestino & "/")
         Dim nprod As Integer = Request.QueryString("idProducto")
         Dim nuevoNombreArchivo As String = ""
 
@@ -499,6 +500,15 @@ Public Class producto_lista_ABM
                         If Not Directory.Exists(targetDirectory) Then
                             Directory.CreateDirectory(targetDirectory)
                         End If
+                        ' Eliminar imagen anterior si no es la imagen por defecto
+                        Dim rutaAnterior As String = Path.Combine(targetDirectory, sNombreImagen)
+                        If sNombreImagen <> ImgProductoDefault AndAlso File.Exists(rutaAnterior) Then
+                            Try
+                                File.Delete(rutaAnterior)
+                            Catch ex As Exception
+                                lblMensajeAtencion.Text = "No se pudo eliminar la imagen anterior: " & ex.Message
+                            End Try
+                        End If
 
                         ' Combinar la ruta de la carpeta con el nuevo nombre de la imagen
                         Dim rutaCompleta As String = Path.Combine(targetDirectory, nuevoNombre)
@@ -507,7 +517,7 @@ Public Class producto_lista_ABM
                         sFileupload.SaveAs(rutaCompleta)
 
                         ' Mostrar la imagen cargada en el control Image
-                        img.ImageUrl = "~/" & carpetadestino & "/" & nuevoNombre
+                        img.ImageUrl = carpetadestino & "/" & nuevoNombre
 
                         ' Mostrar un mensaje de éxito
                         lblMensajeAtencion.ForeColor = System.Drawing.Color.Red
@@ -553,9 +563,9 @@ Public Class producto_lista_ABM
         hNombreImagen1.Value = ImgProductoDefault
     End Sub
     Protected Sub btnDelImg2_Click(sender As Object, e As EventArgs) Handles btnDelImg2.Click
-        imagen2.ImageUrl = "productos\sinfoto.jpg"
-        lblimagen2.Text = "sinfoto.jpg"
-        hNombreImagen2.Value = "sinfoto.jpg"
+        imagen2.ImageUrl = CarpetaImagen
+        lblimagen2.Text = ImgProductoDefault
+        hNombreImagen2.Value = ImgProductoDefault
     End Sub
     Protected Sub btnDelImg3_Click(sender As Object, e As EventArgs) Handles btnDelImg3.Click
         imagen3.ImageUrl = CarpetaImagen

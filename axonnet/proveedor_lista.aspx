@@ -19,16 +19,17 @@
             <li class="breadcrumb-item"><a href="Default.aspx">ADMINISTRACION</a></li>
             <li class="breadcrumb-item active">Proveedores</li>
         </ol>
-        <div class="card mb-4">
-            <div class="card-header">
-                <asp:Button runat="server" ID="BtnNuevo" CssClass="btn btn-primary" Text="Nuevo proveedor" />
-                 <asp:Button runat="server" ID="btnImprimir" CssClass="btn btn-success" Text="Imprimir listado" />
-            </div>                             
-        </div>
+        
         <div class="card mb-4">
              <div class="card-header">
                 <i class="fas fa-table me-1"></i>
                 LISTADO DE PROVEEDORES
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <asp:Button runat="server" ID="BtnNuevo" CssClass="btn btn-primary" Text="Nuevo proveedor" />
+                     <asp:Button runat="server" ID="btnImprimir" CssClass="btn btn-success" Text="Imprimir listado" />
+                </div>                             
             </div>
              <div class="card-body">
                    <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">

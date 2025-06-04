@@ -18,6 +18,10 @@ Public Class producto_imprimir_etiquetas
     Public Property qrImageUrl As String = ""
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If Not IsPostBack Then
             ' Datos de ejemplo: puedes cambiar esto dinámicamente
             Dim descripcionProducto As String = Request.QueryString("nombreproducto")

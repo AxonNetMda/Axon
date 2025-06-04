@@ -1,11 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Administracion.Master" CodeBehind="Suculsales_Lista.aspx.vb" Inherits="axonnet.Suculsales_Lista" %>
-<%@ Import Namespace="capaEntidad" %>
-<%@ Import Namespace="capaDatos.conexion" %>
-<%@ Import Namespace="capaNegocio" %>
-<%@ Import Namespace="System.data" %>
-<%@ Import Namespace="System.data.sqlclient" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script src="Scripts/WebForms/MSAjax/MicrosoftAjax.js"></script>
+    <script src="Scripts/WebForms/MSAjax/MicrosoftAjax.js"></script>
    <script src="Scripts/WebForms/MSAjax/MicrosoftAjaxWebForms.js"></script>
    <link href="css/styles.css" rel="stylesheet" />
     <link href="css/paraimagenes.css" rel="stylesheet" />
@@ -19,39 +15,27 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-     <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
-          <link href="css/check_css.css" rel="stylesheet" />
-
-     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-  
-    <div id="layoutSidenav_content">
- 
+    <div id="layoutSidenav_content"> 
         <div class="container-fluid px-4">
-                        <h1 class="mt-4">Sucursales</h1>
+                       
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="Default.aspx">ADMINISTRACION</a></li>
+                            <li class="breadcrumb-item"><a href="DefaultAdmin.aspx">ADMINISTRACION</a></li>
                             <li class="breadcrumb-item active">Sucursales</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <asp:Button runat="server" ID="BtnNuevo" cssclass="btn btn-primary btn-sm" text="Nueva Sucursal"/>  
-                            </div>
-                        </div>
-                        <%--<div class="card mb-4">
-                            <div class="card-body">
-                                LISTADO DE LAS SUCURSALES
-                            </div>
-                        </div>--%>
+                        
+                       
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 SUCURSALES
                             </div>
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <asp:Button runat="server" ID="BtnNuevo" cssclass="btn btn-primary btn-sm" text="Nueva Sucursal"/>  
+                                </div>
+                            </div>
                             <div class="card-body">
+
                                  <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                                         <div class="datatable-top">
                                             <div class="dropdown">
@@ -232,25 +216,8 @@
                $("#MdlFormaPago").modal("show");
            }
        </script>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<%--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-
-
-   <%--  </div>
-
-
-     </div>
-
-
-     </div>
-
-     </div>
-
-     </div>
-
-     </div>--%>
-
+        <script src="js/datatables-simple-demo.js"></script>--%>
 </asp:Content>

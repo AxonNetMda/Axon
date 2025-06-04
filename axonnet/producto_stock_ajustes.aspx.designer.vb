@@ -86,6 +86,15 @@ Partial Public Class producto_stock_ajustes
     Protected WithEvents txtCantidad As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Control txtPrecio.
+    '''</summary>
+    '''<remarks>
+    '''Campo generado automáticamente.
+    '''Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+    '''</remarks>
+    Protected WithEvents txtPrecio As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Control btnAceptar.
     '''</summary>
     '''<remarks>

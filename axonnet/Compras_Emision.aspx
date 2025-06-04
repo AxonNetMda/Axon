@@ -27,16 +27,16 @@
                 <div class="card-body justify-content-center"> 
                     <div class="row justify-content-center">                            
                             <asp:HiddenField runat="server" ID="hfidCompra" Value="0"/>
-                            <div class="row">  
-                                <div class="col-md-2">
+                            <div class="row g-2">  
+                                <div class="col-12 col-md-6 col-lg-4">
                                         <div class="form-group">                                                    
                                                 <div class="form-floating mb-3">
-                                                    <asp:TextBox runat="server" class="form-control " id="txtFecha" TextMode="Date" Width="200"></asp:TextBox>
+                                                    <asp:TextBox runat="server" class="form-control " id="txtFecha" TextMode="Date" ></asp:TextBox>
                                                     <label class="text-dark" for="txtFecha">Fecha Compra</label>                                   
                                                 </div>
                                         </div>
                                     </div>
-                                <div class="col-md-6">
+                                <div class="col-12 col-md-6 col-lg-4">
                                           <div class="form-group">
                                             <div class="form-floating mb-3">
                                                 <asp:DropDownList runat="server" CssClass="form-control" id="cboProveedor" Enabled="true" ></asp:DropDownList>
@@ -63,7 +63,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group">                                                    
                                          <div class="form-floating mb-3">
-                                             <asp:label runat="server" class="form-control bg-secondary bg-opacity-50" id="lblLetra" Font-Bold="true" Font-Size="Larger"  Width="100"></asp:label>
+                                             <asp:label runat="server" class="form-control bg-secondary bg-opacity-50" id="lblLetra" Font-Bold="true" Font-Size="Larger" ></asp:label>
                                              <label class="text-black" for="lblLetra">Letra</label>                                   
                                          </div>
                                     </div>
@@ -71,7 +71,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group">                                                    
                                          <div class="form-floating mb-3">
-                                             <asp:TextBox runat="server" class="form-control text-end" id="txtPuntoVenta" Text="00000" onblur="formatearConCeros5(this)" MaxLength="5"  Width="100"  AutoCompleteType="Disabled"></asp:TextBox>
+                                             <asp:TextBox runat="server" class="form-control text-end" id="txtPuntoVenta" Text="00000" onblur="formatearConCeros5(this)" MaxLength="5"  AutoCompleteType="Disabled"></asp:TextBox>
                                              <label class="text-dark" for="txtPuntoVenta"> Pto.Vta</label>                                   
                                          </div>
                                     </div>
@@ -79,7 +79,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">                                                    
                                          <div class="form-floating mb-3">
-                                             <asp:TextBox runat="server" class="form-control text-end" id="txtNumeroComprobante"  Text="00000000" onblur="formatearConCeros8(this)" MaxLength="8" Width="200" AutoCompleteType="Disabled"></asp:TextBox>
+                                             <asp:TextBox runat="server" class="form-control text-end" id="txtNumeroComprobante"  Text="00000000" onblur="formatearConCeros8(this)" MaxLength="8"  AutoCompleteType="Disabled"></asp:TextBox>
                                              <label class="text-dark" for="txtPuntoVenta"> Numero </label>                                   
                                          </div>
                                     </div>  
@@ -112,59 +112,59 @@
                                 <div class="container" display="disable">
                                         <div class="form-group">                                                    
                                                  <div class="form-floating mb-3">
-                                                     <div class="row">
+                                                     <div class="row g-3">
                                                          <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtNetoGravado" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true" Width="200" Text="0,00" AutoCompleteType="Disabled"></asp:textbox>
+                                                                <asp:textbox ID="txtNetoGravado" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true" Text="0,00" AutoCompleteType="Disabled"></asp:textbox>
                                                                 <label class="text-dark" for="txtNetoGravado"> Neto gravado </label>  
                                                              </div>
                                                              </div>
                                                    
                                                          <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtAlicuota105" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true" Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtAlicuota105" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00"></asp:textbox>
                                                                 <label class="text-dark" for="txtAlicuota105"> ALicuota 10,50% </label>  
                                                              </div>
                                                         </div>
                                                         <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtAlicuota21" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtAlicuota21" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true" Text="0,00"></asp:textbox>
                                                                 <label class="text-dark" for="txtAlicuota21"> ALicuota 21,00% </label>  
                                                              </div>
                                                         </div>
                                                         <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtImpuestosInternos" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtImpuestosInternos" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00"></asp:textbox>
                                                                 <label class="text-dark" for="txtImpuestosInternos"> Imp.Internos </label>  
                                                              </div>
                                                         </div>
                                                         <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtPercIIBB" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtPercIIBB" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true" Text="0,00"></asp:textbox>
                                                                 <label class="text-dark" for="txtPercIIBB"> Perc.IIBB </label>  
                                                              </div>
                                                         </div>
                                                         <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtPrecIVA" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtPrecIVA" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00"></asp:textbox>
                                                                 <label class="text-dark" for="txtPrecIVA"> Perc.IVA </label>  
                                                              </div>
                                                         </div>
                                                         <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtNoGravado" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtNoGravado" runat="server" CssClass="form-control text-end" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00"></asp:textbox>
                                                                 <label class="text-dark" for="txtNoGravado">No gravado</label>  
                                                              </div>
                                                         </div>
                                                          <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:textbox ID="txtDescuento" runat="server" CssClass="form-control text-end" ForeColor="Green" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Width="200" Text="0,00"></asp:textbox>
+                                                                <asp:textbox ID="txtDescuento" runat="server" CssClass="form-control text-end" ForeColor="Green" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00"></asp:textbox>
                                                                 <label class="text-dark text-success" for="txtDescuento">Descuento</label>  
                                                              </div>
                                                         </div>
                                                      <div class="col-md-2">                                                    
                                                              <div class="form-floating mb-2">
-                                                                <asp:TextBox runat="server" class="form-control text-end" id="txtImporteFactura" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00" Width="200"></asp:TextBox>
+                                                                <asp:TextBox runat="server" class="form-control text-end" id="txtImporteFactura" onkeydown="reemplazarPuntoDecimal(event)" onblur="formatearNumero(this)" AutoPostBack="true"  Text="0,00"></asp:TextBox>
                                                                 <label class="text-dark" for="txtImporteFactura">Total</label>  
                                                              </div>
                                                         </div>
@@ -178,7 +178,7 @@
                                              <h6 class="text-center font-weight-light my-1"><strong>DETALLE</strong></h6>    
                                         </div>
                                         <br />
-                                        <div class="row">
+                                        <div class="row g-3">
                                             <div class="col-md-2">
                                                 <div class="form-group">                                                    
                                                      <div class="form-floating mb-3">
@@ -291,6 +291,7 @@
                                                         <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" ItemStyle-CssClass="text-end"/>
                                                         <asp:BoundField DataField="Precio" HeaderText="Precio" ItemStyle-CssClass="text-end"/>        
                                                         <asp:BoundField DataField="AlicuotaIVA" HeaderText="IVA %" ItemStyle-Width="100" ItemStyle-CssClass="text-end"/>  
+                                                         <asp:BoundField DataField="ImporteIva" HeaderText="IVA $" ItemStyle-Width="100" ItemStyle-CssClass="text-end"/>  
                                                         <asp:BoundField DataField="SubTotal" HeaderText="SubTotal" ItemStyle-Width="100" ItemStyle-CssClass="text-end"/>                                     
                                                         <asp:ButtonField ButtonType="Button" CommandName="editar" ItemStyle-HorizontalAlign="Center" >   
                                                                      <ControlStyle CssClass="btn btn-primary fas fa-edit" ></ControlStyle>
@@ -320,14 +321,15 @@
 
                                 </div>                                                                   
                                 <hr class="bg-warning border-3">
-                                <div class="container-fluid px-4">
-                                    <div class="d-flex align-items-end justify-content-between small">
+                                
+                                
+                                    <div class="row d-flex align-items-end justify-content-between small">
                                         <div class="form-group">                                                    
                                                  <div class="form-floating mb-3">
                                                      <asp:Label ID="lblMensajeFooter" runat="server" Text=""></asp:Label>
                                                  </div>
                                         </div>
-                                         <div class="col-md-2">                                                    
+                                         <div class="col-md-2 d-flex align-items-end justify-content-between small">                                                    
                                                     <div class="form-floating mb-3">
                                                     <asp:Label ID="lblTotal" runat="server" CssClass="form-control text-end bg-dark text-white" Font-Bold="true" Font-Size="Large" Width="200" Text="0,00"></asp:Label>
                                                     <label class="text-white" for="lblTotal"> TOTAL </label>  
@@ -335,8 +337,8 @@
                                         </div>
 
                                     </div>
-                                </div>
-                                                          
+                               
+                                                       
 
                                                      </asp:panel> 
                     </div>

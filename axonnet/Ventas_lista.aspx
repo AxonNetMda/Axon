@@ -14,9 +14,6 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="formMaster" runat="server">
-          <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("login.aspx?idUsuario=0")
-            End If %>
      <style>
         .gridDetalle {
             padding-left: 20px;

@@ -10,6 +10,10 @@ Public Class proveedor_lista_ABM
     Dim HayError As Boolean = False
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
+
         If IsPostBack Then
         Else
             PanelDatos.Enabled = True

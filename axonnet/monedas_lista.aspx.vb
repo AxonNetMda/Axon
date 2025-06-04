@@ -10,6 +10,9 @@ Public Class monedas_lista
     Dim scomando As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("sNombreUsuario") Is Nothing Then
+            Response.Redirect("~/login.aspx")
+        End If
         If IsPostBack Then
         Else
 

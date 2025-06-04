@@ -18,20 +18,23 @@ Public Class producto_stock_listado
     Dim valorCelda As Integer
     Dim listsuc As List(Of sucursal)
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        'If Session("sNombreUsuario") = "" Then
+        '    Response.Redirect("~/login.aspx")
+        'End If
 
 
         If IsPostBack Then
             'listsuc = New CN_Sucursal().Listar(0)
-            pSuc = Request.QueryString("nSucursal")
+            'pSuc = Request.QueryString("nSucursal")
             sBuscar = Request.QueryString("sBuscar")
             nSuc = cboSucursal.SelectedValue
 
 
             If Trim(txtBuscar.Text) <> "" Then
 
-                filtro = " WHERE dbo.producto.Nombre LIKE '%" & txtBuscar.Text & "%' and dbo.producto_stock.idsucursal=" & cboSucursal.SelectedValue
+                filtro = " WHERE dbo.producto.Nombre LIKE '%" & txtBuscar.Text & "%' and dbo.producto_stock.idsucursal=" & nSuc
             Else
-                filtro = " WHERE  dbo.producto_stock.idsucursal=" & cboSucursal.SelectedValue
+                filtro = " WHERE  dbo.producto_stock.idsucursal=" & nSuc
             End If
             scomando = "SELECT dbo.producto_Stock.idStock_Producto, dbo.producto_Stock.idProducto, dbo.producto.Nombre as NombreProducto, dbo.producto_Stock.idSucursal,
                         dbo.Sucursales.Nombre, COALESCE(dbo.producto_stock.StockCritico, 0) AS StockCritico, COALESCE(dbo.producto_stock.StockActual, 0) AS StockActual,
@@ -39,9 +42,6 @@ Public Class producto_stock_listado
                         FROM dbo.producto_Stock
                         INNER JOIN dbo.producto ON dbo.producto_Stock.idProducto = dbo.producto.idProducto
                         INNER JOIN dbo.Sucursales ON dbo.producto_Stock.idSucursal = dbo.sucursales.idsucursal " & filtro & " ORDER BY dbo.producto.Nombre"
-            'scomando = "SELECT producto.idProducto, producto.Nombre, producto.StockCritico, producto_Stock.idSucursal, producto_Stock.StockActual , dbo.producto.Estado
-            '            FROM producto 
-            '            LEFT JOIN producto_Stock ON producto.idProducto = producto_Stock.idProducto " & filtro & " ORDER BY Nombre"
 
         Else
             If (nSuc = 0) And (Request.QueryString("nSucursal") = Nothing) Then
@@ -89,7 +89,7 @@ Public Class producto_stock_listado
                         INNER JOIN dbo.Sucursales ON dbo.producto_Stock.idSucursal = dbo.sucursales.idSucursal " & filtro & " ORDER BY dbo.producto.Nombre;"
         End If
 
-            sqlProducto.SelectCommand = scomando
+        sqlProducto.SelectCommand = scomando
         dgvData.PageSize = cboMostrar.SelectedValue
         dgvData.DataBind()
 

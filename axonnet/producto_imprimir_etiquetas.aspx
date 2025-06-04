@@ -63,9 +63,6 @@
 </head>
 <body>
     <form id="form1" runat="server">
-         <%If Session("sNombreUsuario") = "" Then
-                Response.Redirect("~/login.aspx?idUsuario=0")
-            End If %>
   
         <div class="etiqueta">
             <div class="row">

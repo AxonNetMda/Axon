@@ -181,7 +181,7 @@ Public Class compras_lista
                 ' Insertar la nueva fila de detalles debajo de la fila seleccionada
 
                 gvCabecera.Controls(0).Controls.AddAt(index + 2, newRow)
-
+                CType(e.CommandSource, Button).CssClass = "btn btn-success fas fa-plus"
                 'CType(e.CommandSource, Button).Text = "fas fa-cancel"
                 CType(e.CommandSource, Button).Text = "-"
             End If
@@ -313,18 +313,28 @@ Public Class compras_lista
             MaestroMovimientosdetalle.Columns.Add("ALicuotaIVA", GetType(Decimal))
             MaestroMovimientosdetalle.Columns.Add("PrecioVetna", GetType(Decimal))
             MaestroMovimientosdetalle.Columns.Add("Referencia", GetType(String))
+
+
+            Dim tbDetalleInventario As New DataTable
+            tbDetalleInventario.Columns.Add("idDeSucursal", GetType(Integer))
+            tbDetalleInventario.Columns.Add("idASucursdal", GetType(Integer))
+            tbDetalleInventario.Columns.Add("idProducto", GetType(Integer))
+            tbDetalleInventario.Columns.Add("FecFecha", GetType(Date))
+            tbDetalleInventario.Columns.Add("Detalle", GetType(String))
+            tbDetalleInventario.Columns.Add("idProveedor", GetType(Integer))
+            tbDetalleInventario.Columns.Add("CantidadEntrada", GetType(Integer))
+            tbDetalleInventario.Columns.Add("PrecioEntrada", GetType(Decimal))
+            tbDetalleInventario.Columns.Add("idCliente", GetType(Integer))
+            tbDetalleInventario.Columns.Add("CantidadSalida", GetType(Integer))
+            tbDetalleInventario.Columns.Add("PrecioSalida", GetType(Decimal))
+            tbDetalleInventario.Columns.Add("FechaActualizacion", GetType(Date))
+            tbDetalleInventario.Columns.Add("IdUsuario", GetType(Integer))
+            tbDetalleInventario.Columns.Add("TipoOperacion", GetType(Integer))
+            tbDetalleInventario.Columns.Add("Referencia", GetType(String))
+
             For i = 0 To dt.Rows.Count - 1
                 MaestroMovimientosdetalle.Rows.Add(cboSucursal.SelectedValue, dt.Rows(i).Item(0).Text, dt.Rows(i).Item(2).Text, 0, dt.Rows(i).Item(3).Text, 0, 0, dt.Rows(i).Item(5).Text)
-                detalles.Add(New maestromovimiento_detalle With {
-               .idSucursal = cboSucursal.SelectedValue,
-               .IdProducto = Convert.ToInt32(dt.Rows(i).Item(0).Text),
-               .Cantidad = Convert.ToInt32(dt.Rows(i).Item(2).Text),
-               .stockcritico = 0,
-               .PrecioUnitario = Convert.ToDecimal(dt.Rows(i).Item(3).Text),
-               .AlicuotaIVA = 0,
-               .PrecioVenta = 0,
-               .Referencia = dt.Rows(i).Item(5).text
-   })
+
             Next i
 
             objMovi = New maestromovimiento() With {
@@ -339,7 +349,7 @@ Public Class compras_lista
                 .oTipoMovimiento = New tipomovimiento() With {.idTipoMovimiento = 3},
                 .oTipoComprobante = New tipocomprobantes() With {.idTipoComprobante = 0},
                 .Numerocomprobante = nNumerpComprobante,
-                .letra = "REP",
+                .letra = "CPA",
                 .NetoGravado = 0,
                 .AlicuotaIVA0 = 0,
                 .AlicuotaIVA25 = 0,
@@ -347,8 +357,8 @@ Public Class compras_lista
                 .AlicuotaIVA105 = 0,
                 .AlicuotaIVA21 = 0,
                 .AlicuotaIVA27 = 0,
-                .oMaestroDetalle = detalles,
-                .Comprobante = "REP-" & nSuc.ToString().PadLeft(4, "0"c) & "-" & nNumerpComprobante.ToString().PadLeft(8, "0"c),
+                .tbtDetalleInventario = MaestroMovimientosdetalle,
+                .Comprobante = "CPA-" & nSuc.ToString().PadLeft(4, "0"c) & "-" & nNumerpComprobante.ToString().PadLeft(8, "0"c),
                 .ImpuestosInternos = 0,
                 .PercepcionIngresosBrutos = 0,
                 .NoGravado = 0,
@@ -399,7 +409,7 @@ Public Class compras_lista
             Dim estado As String = DataBinder.Eval(e.Row.DataItem, "Estado").ToString()
 
             ' Evaluar el estado y cambiar el color del texto
-            If estado = "False" Then
+            If estado = "True" Then
                 lblEstado.Text = "ANULADA"
                 lblEstado.ForeColor = System.Drawing.Color.Red
             Else
@@ -426,4 +436,6 @@ Public Class compras_lista
             CargarCabecera(cboSucursal.SelectedValue)
         End If
     End Sub
+
+
 End Class

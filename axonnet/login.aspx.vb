@@ -9,7 +9,7 @@ Public Class Login
         If IsPostBack Then
 
         Else
-            Dim listasucursales As List(Of sucursal) = New CN_Sucursal().Listar(0)
+            Dim listasucursales As List(Of sucursal) = New CN_Sucursal().ListarLogin()
             cboSucursales.Items.Clear()
 
             For item = 0 To listasucursales.Count - 1
