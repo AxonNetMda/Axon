@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,7 +13,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>axonnet</RootNamespace>
     <AssemblyName>axonnet</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +33,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>axonnet.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42032,42036</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,16 +43,25 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>axonnet.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42032,42036</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -62,10 +71,13 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.10\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.10.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.10\lib\net47\zxing.presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +104,411 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CatalogoAdministracion.aspx" />
+    <Content Include="Catalogo_Ficha.aspx" />
+    <Content Include="Cliente_lista.aspx" />
+    <Content Include="Cliente_Lista_ABM.aspx" />
+    <Content Include="Compras_Emision.aspx" />
+    <Content Include="compras_lista.aspx" />
+    <Content Include="GuardarEnCarrito.aspx" />
+    <Content Include="img\backgrounds\wall_1.jpg" />
+    <Content Include="img\backgrounds\wall_10.jpg" />
+    <Content Include="img\backgrounds\wall_2.jpg" />
+    <Content Include="img\backgrounds\wall_3.jpg" />
+    <Content Include="img\backgrounds\wall_4.jpg" />
+    <Content Include="img\backgrounds\wall_5.jpg" />
+    <Content Include="img\backgrounds\wall_6.jpg" />
+    <Content Include="img\backgrounds\wall_7.jpg" />
+    <Content Include="img\backgrounds\wall_8.jpg" />
+    <Content Include="img\backgrounds\wall_9.jpg" />
+    <Content Include="img\bg-dot.png" />
+    <Content Include="img\bg.png" />
+    <Content Include="img\blueimp\error.png" />
+    <Content Include="img\blueimp\error.svg" />
+    <Content Include="img\blueimp\loading.gif" />
+    <Content Include="img\blueimp\play-pause.png" />
+    <Content Include="img\blueimp\play-pause.svg" />
+    <Content Include="img\blueimp\video-play.png" />
+    <Content Include="img\blueimp\video-play.svg" />
+    <Content Include="img\cards\amex.png" />
+    <Content Include="img\cards\cirrus.png" />
+    <Content Include="img\cards\direct.png" />
+    <Content Include="img\cards\discover.png" />
+    <Content Include="img\cards\gift.png" />
+    <Content Include="img\cards\google.png" />
+    <Content Include="img\cards\mastercard.png" />
+    <Content Include="img\cards\paypal.png" />
+    <Content Include="img\cards\solo.png" />
+    <Content Include="img\cards\switch.png" />
+    <Content Include="img\cards\visa.png" />
+    <Content Include="img\cards\visae.png" />
+    <Content Include="img\cards\wu.png" />
+    <Content Include="img\colorpicker\alpha.png" />
+    <Content Include="img\colorpicker\hue.png" />
+    <Content Include="img\colorpicker\saturation.png" />
+    <Content Include="img\dropzone\spritemap%402x.png" />
+    <Content Include="img\dropzone\spritemap.png" />
+    <Content Include="img\fileinput\loading.gif" />
+    <Content Include="img\filetree\application.png" />
+    <Content Include="img\filetree\code.png" />
+    <Content Include="img\filetree\css.png" />
+    <Content Include="img\filetree\db.png" />
+    <Content Include="img\filetree\directory.png" />
+    <Content Include="img\filetree\doc.png" />
+    <Content Include="img\filetree\file.png" />
+    <Content Include="img\filetree\film.png" />
+    <Content Include="img\filetree\flash.png" />
+    <Content Include="img\filetree\folder_open.png" />
+    <Content Include="img\filetree\html.png" />
+    <Content Include="img\filetree\java.png" />
+    <Content Include="img\filetree\linux.png" />
+    <Content Include="img\filetree\music.png" />
+    <Content Include="img\filetree\pdf.png" />
+    <Content Include="img\filetree\php.png" />
+    <Content Include="img\filetree\picture.png" />
+    <Content Include="img\filetree\ppt.png" />
+    <Content Include="img\filetree\psd.png" />
+    <Content Include="img\filetree\ruby.png" />
+    <Content Include="img\filetree\script.png" />
+    <Content Include="img\filetree\spinner.gif" />
+    <Content Include="img\filetree\txt.png" />
+    <Content Include="img\filetree\xls.png" />
+    <Content Include="img\filetree\zip.png" />
+    <Content Include="img\flags\ad.png" />
+    <Content Include="img\flags\ae.png" />
+    <Content Include="img\flags\af.png" />
+    <Content Include="img\flags\ag.png" />
+    <Content Include="img\flags\ai.png" />
+    <Content Include="img\flags\al.png" />
+    <Content Include="img\flags\am.png" />
+    <Content Include="img\flags\an.png" />
+    <Content Include="img\flags\ao.png" />
+    <Content Include="img\flags\aq.png" />
+    <Content Include="img\flags\ar.png" />
+    <Content Include="img\flags\as.png" />
+    <Content Include="img\flags\at.png" />
+    <Content Include="img\flags\au.png" />
+    <Content Include="img\flags\aw.png" />
+    <Content Include="img\flags\az.png" />
+    <Content Include="img\flags\ba.png" />
+    <Content Include="img\flags\bb.png" />
+    <Content Include="img\flags\bd.png" />
+    <Content Include="img\flags\be.png" />
+    <Content Include="img\flags\bf.png" />
+    <Content Include="img\flags\bg.png" />
+    <Content Include="img\flags\bh.png" />
+    <Content Include="img\flags\bi.png" />
+    <Content Include="img\flags\bj.png" />
+    <Content Include="img\flags\bm.png" />
+    <Content Include="img\flags\bn.png" />
+    <Content Include="img\flags\bo.png" />
+    <Content Include="img\flags\br.png" />
+    <Content Include="img\flags\bs.png" />
+    <Content Include="img\flags\bt.png" />
+    <Content Include="img\flags\bw.png" />
+    <Content Include="img\flags\by.png" />
+    <Content Include="img\flags\bz.png" />
+    <Content Include="img\flags\ca.png" />
+    <Content Include="img\flags\cd.png" />
+    <Content Include="img\flags\cf.png" />
+    <Content Include="img\flags\cg.png" />
+    <Content Include="img\flags\ch.png" />
+    <Content Include="img\flags\ci.png" />
+    <Content Include="img\flags\ck.png" />
+    <Content Include="img\flags\cl.png" />
+    <Content Include="img\flags\cm.png" />
+    <Content Include="img\flags\cn.png" />
+    <Content Include="img\flags\co.png" />
+    <Content Include="img\flags\cr.png" />
+    <Content Include="img\flags\cu.png" />
+    <Content Include="img\flags\cv.png" />
+    <Content Include="img\flags\cy.png" />
+    <Content Include="img\flags\cz.png" />
+    <Content Include="img\flags\de.png" />
+    <Content Include="img\flags\dj.png" />
+    <Content Include="img\flags\dk.png" />
+    <Content Include="img\flags\dm.png" />
+    <Content Include="img\flags\do.png" />
+    <Content Include="img\flags\dz.png" />
+    <Content Include="img\flags\ec.png" />
+    <Content Include="img\flags\ee.png" />
+    <Content Include="img\flags\eg.png" />
+    <Content Include="img\flags\eh.png" />
+    <Content Include="img\flags\er.png" />
+    <Content Include="img\flags\es.png" />
+    <Content Include="img\flags\et.png" />
+    <Content Include="img\flags\fi.png" />
+    <Content Include="img\flags\fj.png" />
+    <Content Include="img\flags\fm.png" />
+    <Content Include="img\flags\fo.png" />
+    <Content Include="img\flags\fr.png" />
+    <Content Include="img\flags\ga.png" />
+    <Content Include="img\flags\gb.png" />
+    <Content Include="img\flags\gd.png" />
+    <Content Include="img\flags\ge.png" />
+    <Content Include="img\flags\gg.png" />
+    <Content Include="img\flags\gh.png" />
+    <Content Include="img\flags\gi.png" />
+    <Content Include="img\flags\gl.png" />
+    <Content Include="img\flags\gm.png" />
+    <Content Include="img\flags\gn.png" />
+    <Content Include="img\flags\gp.png" />
+    <Content Include="img\flags\gq.png" />
+    <Content Include="img\flags\gr.png" />
+    <Content Include="img\flags\gt.png" />
+    <Content Include="img\flags\gu.png" />
+    <Content Include="img\flags\gw.png" />
+    <Content Include="img\flags\gy.png" />
+    <Content Include="img\flags\hk.png" />
+    <Content Include="img\flags\hn.png" />
+    <Content Include="img\flags\hr.png" />
+    <Content Include="img\flags\ht.png" />
+    <Content Include="img\flags\hu.png" />
+    <Content Include="img\flags\id.png" />
+    <Content Include="img\flags\ie.png" />
+    <Content Include="img\flags\il.png" />
+    <Content Include="img\flags\im.png" />
+    <Content Include="img\flags\in.png" />
+    <Content Include="img\flags\iq.png" />
+    <Content Include="img\flags\ir.png" />
+    <Content Include="img\flags\is.png" />
+    <Content Include="img\flags\it.png" />
+    <Content Include="img\flags\je.png" />
+    <Content Include="img\flags\jm.png" />
+    <Content Include="img\flags\jo.png" />
+    <Content Include="img\flags\jp.png" />
+    <Content Include="img\flags\ke.png" />
+    <Content Include="img\flags\kg.png" />
+    <Content Include="img\flags\kh.png" />
+    <Content Include="img\flags\ki.png" />
+    <Content Include="img\flags\km.png" />
+    <Content Include="img\flags\kn.png" />
+    <Content Include="img\flags\kp.png" />
+    <Content Include="img\flags\kr.png" />
+    <Content Include="img\flags\kw.png" />
+    <Content Include="img\flags\ky.png" />
+    <Content Include="img\flags\kz.png" />
+    <Content Include="img\flags\la.png" />
+    <Content Include="img\flags\lb.png" />
+    <Content Include="img\flags\lc.png" />
+    <Content Include="img\flags\li.png" />
+    <Content Include="img\flags\lk.png" />
+    <Content Include="img\flags\lr.png" />
+    <Content Include="img\flags\ls.png" />
+    <Content Include="img\flags\lt.png" />
+    <Content Include="img\flags\lu.png" />
+    <Content Include="img\flags\lv.png" />
+    <Content Include="img\flags\ly.png" />
+    <Content Include="img\flags\ma.png" />
+    <Content Include="img\flags\mc.png" />
+    <Content Include="img\flags\md.png" />
+    <Content Include="img\flags\me.png" />
+    <Content Include="img\flags\mg.png" />
+    <Content Include="img\flags\mh.png" />
+    <Content Include="img\flags\mk.png" />
+    <Content Include="img\flags\ml.png" />
+    <Content Include="img\flags\mm.png" />
+    <Content Include="img\flags\mn.png" />
+    <Content Include="img\flags\mo.png" />
+    <Content Include="img\flags\mq.png" />
+    <Content Include="img\flags\mr.png" />
+    <Content Include="img\flags\ms.png" />
+    <Content Include="img\flags\mt.png" />
+    <Content Include="img\flags\mu.png" />
+    <Content Include="img\flags\mv.png" />
+    <Content Include="img\flags\mw.png" />
+    <Content Include="img\flags\mx.png" />
+    <Content Include="img\flags\my.png" />
+    <Content Include="img\flags\mz.png" />
+    <Content Include="img\flags\na.png" />
+    <Content Include="img\flags\nc.png" />
+    <Content Include="img\flags\ne.png" />
+    <Content Include="img\flags\ng.png" />
+    <Content Include="img\flags\ni.png" />
+    <Content Include="img\flags\nl.png" />
+    <Content Include="img\flags\no.png" />
+    <Content Include="img\flags\np.png" />
+    <Content Include="img\flags\nr.png" />
+    <Content Include="img\flags\nz.png" />
+    <Content Include="img\flags\om.png" />
+    <Content Include="img\flags\pa.png" />
+    <Content Include="img\flags\pe.png" />
+    <Content Include="img\flags\pf.png" />
+    <Content Include="img\flags\pg.png" />
+    <Content Include="img\flags\ph.png" />
+    <Content Include="img\flags\pk.png" />
+    <Content Include="img\flags\pl.png" />
+    <Content Include="img\flags\pr.png" />
+    <Content Include="img\flags\ps.png" />
+    <Content Include="img\flags\pt.png" />
+    <Content Include="img\flags\pw.png" />
+    <Content Include="img\flags\py.png" />
+    <Content Include="img\flags\qa.png" />
+    <Content Include="img\flags\re.png" />
+    <Content Include="img\flags\ro.png" />
+    <Content Include="img\flags\rs.png" />
+    <Content Include="img\flags\ru.png" />
+    <Content Include="img\flags\rw.png" />
+    <Content Include="img\flags\sa.png" />
+    <Content Include="img\flags\sb.png" />
+    <Content Include="img\flags\sc.png" />
+    <Content Include="img\flags\sd.png" />
+    <Content Include="img\flags\se.png" />
+    <Content Include="img\flags\sg.png" />
+    <Content Include="img\flags\si.png" />
+    <Content Include="img\flags\sk.png" />
+    <Content Include="img\flags\sl.png" />
+    <Content Include="img\flags\sm.png" />
+    <Content Include="img\flags\sn.png" />
+    <Content Include="img\flags\so.png" />
+    <Content Include="img\flags\sr.png" />
+    <Content Include="img\flags\st.png" />
+    <Content Include="img\flags\sv.png" />
+    <Content Include="img\flags\sy.png" />
+    <Content Include="img\flags\sz.png" />
+    <Content Include="img\flags\tc.png" />
+    <Content Include="img\flags\td.png" />
+    <Content Include="img\flags\tg.png" />
+    <Content Include="img\flags\th.png" />
+    <Content Include="img\flags\tj.png" />
+    <Content Include="img\flags\tl.png" />
+    <Content Include="img\flags\tm.png" />
+    <Content Include="img\flags\tn.png" />
+    <Content Include="img\flags\to.png" />
+    <Content Include="img\flags\tr.png" />
+    <Content Include="img\flags\tt.png" />
+    <Content Include="img\flags\tv.png" />
+    <Content Include="img\flags\tw.png" />
+    <Content Include="img\flags\tz.png" />
+    <Content Include="img\flags\ua.png" />
+    <Content Include="img\flags\ug.png" />
+    <Content Include="img\flags\us.png" />
+    <Content Include="img\flags\uy.png" />
+    <Content Include="img\flags\uz.png" />
+    <Content Include="img\flags\va.png" />
+    <Content Include="img\flags\vc.png" />
+    <Content Include="img\flags\ve.png" />
+    <Content Include="img\flags\vg.png" />
+    <Content Include="img\flags\vi.png" />
+    <Content Include="img\flags\vn.png" />
+    <Content Include="img\flags\vu.png" />
+    <Content Include="img\flags\ws.png" />
+    <Content Include="img\flags\ye.png" />
+    <Content Include="img\flags\za.png" />
+    <Content Include="img\flags\zm.png" />
+    <Content Include="img\flags\zw.png" />
+    <Content Include="img\flags\_African Union%28OAS%29.png" />
+    <Content Include="img\flags\_Arab League.png" />
+    <Content Include="img\flags\_ASEAN.png" />
+    <Content Include="img\flags\_CARICOM.png" />
+    <Content Include="img\flags\_CIS.png" />
+    <Content Include="img\flags\_Commonwealth.png" />
+    <Content Include="img\flags\_England.png" />
+    <Content Include="img\flags\_European Union.png" />
+    <Content Include="img\flags\_Islamic Conference.png" />
+    <Content Include="img\flags\_Kosovo.png" />
+    <Content Include="img\flags\_NATO.png" />
+    <Content Include="img\flags\_Northern Cyprus.png" />
+    <Content Include="img\flags\_Northern Ireland.png" />
+    <Content Include="img\flags\_Olimpic Movement.png" />
+    <Content Include="img\flags\_OPEC.png" />
+    <Content Include="img\flags\_Red Cross.png" />
+    <Content Include="img\flags\_Scotland.png" />
+    <Content Include="img\flags\_Somaliland.png" />
+    <Content Include="img\flags\_United Nations.png" />
+    <Content Include="img\flags\_Wales.png" />
+    <Content Include="img\icheck\grey%402x.png" />
+    <Content Include="img\icheck\grey.png" />
+    <Content Include="img\icons\csv.png" />
+    <Content Include="img\icons\json.png" />
+    <Content Include="img\icons\pdf.png" />
+    <Content Include="img\icons\png.png" />
+    <Content Include="img\icons\ppt.png" />
+    <Content Include="img\icons\sql.png" />
+    <Content Include="img\icons\txt.png" />
+    <Content Include="img\icons\word.png" />
+    <Content Include="img\icons\xls.png" />
+    <Content Include="img\icons\xml.png" />
+    <Content Include="img\ion\sprite-skin-flat.png" />
+    <Content Include="img\ion\sprite-skin-modern.png" />
+    <Content Include="img\ion\sprite-skin-nice.png" />
+    <Content Include="img\ion\sprite-skin-simple.png" />
+    <Content Include="img\jquery\animated-overlay.gif" />
+    <Content Include="img\jquery\resize-icon%402x.png" />
+    <Content Include="img\jquery\resize-icon.png" />
+    <Content Include="img\jquery\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="img\jquery\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="img\jquery\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="img\jquery\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="img\jquery\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="img\jquery\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="img\jquery\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="img\jquery\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="img\jquery\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="img\jquery\ui-icons_222222_256x240.png" />
+    <Content Include="img\jquery\ui-icons_228ef1_256x240.png" />
+    <Content Include="img\jquery\ui-icons_ef8c08_256x240.png" />
+    <Content Include="img\jquery\ui-icons_ffd27a_256x240.png" />
+    <Content Include="img\jquery\ui-icons_ffffff_256x240.png" />
+    <Content Include="img\jstree\32px.png" />
+    <Content Include="img\jstree\40px.png" />
+    <Content Include="img\jstree\throbber.gif" />
+    <Content Include="img\loaders\default.gif" />
+    <Content Include="img\loaders\page-loader.gif" />
+    <Content Include="img\logo%402x.png" />
+    <Content Include="img\logo-black.png" />
+    <Content Include="img\logo-grey%402x.png" />
+    <Content Include="img\logo-grey-big%402x.png" />
+    <Content Include="img\logo-grey-big.png" />
+    <Content Include="img\logo-grey.png" />
+    <Content Include="img\logo-lr%402x.png" />
+    <Content Include="img\logo-lr.png" />
+    <Content Include="img\logo-small%402x.png" />
+    <Content Include="img\logo-small-grey%402x.png" />
+    <Content Include="img\logo-small-grey.png" />
+    <Content Include="img\logo-small.png" />
+    <Content Include="img\logo-white.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\owl\AjaxLoader.gif" />
+    <Content Include="img\owl\grabbing.png" />
+    <Content Include="img\themes\dark-head-light.jpg" />
+    <Content Include="img\themes\dark.jpg" />
+    <Content Include="img\themes\default-head-light.jpg" />
+    <Content Include="img\themes\default.jpg" />
+    <Content Include="img\themes\forest-head-light.jpg" />
+    <Content Include="img\themes\forest.jpg" />
+    <Content Include="img\themes\light.jpg" />
+    <Content Include="img\themes\night-head-light.jpg" />
+    <Content Include="img\themes\night.jpg" />
+    <Content Include="img\themes\serenity-head-light.jpg" />
+    <Content Include="img\themes\serenity.jpg" />
+    <Content Include="monedas_lista.aspx" />
+    <Content Include="moneda_lista_ABM.aspx" />
+    <Content Include="Producto_Categoria_Lista.aspx" />
+    <Content Include="Producto_Categoria_Lista_ABM.aspx" />
+    <Content Include="producto_etiquetas.aspx" />
+    <Content Include="producto_fotos.aspx" />
+    <Content Include="producto_imprimir_etiquetas.aspx" />
+    <Content Include="producto_inventario.aspx" />
+    <Content Include="producto_lista.aspx" />
+    <Content Include="producto_lista_ABM.aspx" />
+    <Content Include="producto_lista_precios_suc.aspx" />
+    <Content Include="producto_marca_lista.aspx" />
+    <Content Include="producto_marca_lista_ABM.aspx" />
+    <Content Include="producto_stock_ajustes.aspx" />
+    <Content Include="producto_stock_listado.aspx" />
+    <Content Include="proveedor_lista.aspx" />
+    <Content Include="proveedor_lista_ABM.aspx" />
+    <Content Include="Repisiciones_Emision.aspx" />
+    <Content Include="repo2.aspx" />
+    <Content Include="Reposiciones_lista.aspx" />
+    <Content Include="Suculsales_Lista.aspx" />
+    <Content Include="Sucursales_ABM.aspx" />
+    <Content Include="Usuarios_lista.aspx" />
+    <Content Include="Usuarios_Lista_ABM.aspx" />
+    <Content Include="Usuarios_ResetearPassword.aspx" />
+    <Content Include="Ventas_Emision.aspx" />
+    <Content Include="Ventas_lista.aspx" />
     <Content Include="animate\animate.css" />
     <Content Include="animate\animate.min.css" />
     <Content Include="assets\demo\chart-area-demo.js" />
@@ -103,48 +520,7 @@
     <Content Include="assets\img\no-image.jpg" />
     <Content Include="bin\axonnet.dll" />
     <Content Include="bin\axonnet.pdb" />
-    <Content Include="bin\axonnet.xml" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\csi.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
-    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
-    <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
-    <Content Include="bin\roslyn\System.AppContext.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Console.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.DiagnosticSource.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.FileVersionInfo.dll" />
-    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
-    <Content Include="bin\roslyn\System.Globalization.Calendars.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.dll" />
-    <Content Include="bin\roslyn\System.IO.Compression.ZipFile.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
-    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Net.Http.dll" />
-    <Content Include="bin\roslyn\System.Net.Sockets.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Algorithms.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Encoding.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.Primitives.dll" />
-    <Content Include="bin\roslyn\System.Security.Cryptography.X509Certificates.dll" />
-    <Content Include="bin\roslyn\System.Text.Encoding.CodePages.dll" />
-    <Content Include="bin\roslyn\System.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\roslyn\System.ValueTuple.dll" />
-    <Content Include="bin\roslyn\System.Xml.ReaderWriter.dll" />
-    <Content Include="bin\roslyn\System.Xml.XmlDocument.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.dll" />
-    <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="Contacto.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -232,13 +608,23 @@
     <Content Include="css\theme-night.css" />
     <Content Include="css\theme-serenity-head-light.css" />
     <Content Include="css\theme-serenity.css" />
+    <Content Include="Empresa_Datos.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="DefaultAdmin.aspx" />
+    <Content Include="Default_demo.aspx" />
+    <Content Include="Demo_login.aspx" />
+    <Content Include="Demo_Registrarse.aspx" />
+    <Content Include="imagenessitio\imgLogin.png" />
+    <Content Include="imagenessitio\imgSinFoto.png" />
+    <Content Include="imagenessitio\imgSinImagen.png" />
+    <Content Include="imagenessitio\sinfoto.jpg" />
     <Content Include="Imagenes\actualizar01.png" />
     <Content Include="Imagenes\administracionfondo.jpg" />
     <Content Include="Imagenes\adminitracion.png" />
     <Content Include="Imagenes\agregar.png" />
     <Content Include="Imagenes\agregar24.png" />
     <Content Include="Imagenes\anulafactura.png" />
-    <Content Include="Imagenes\axon.png" />
+    <Content Include="Imagenes\articoheladeria.png" />
     <Content Include="Imagenes\buscar.png" />
     <Content Include="Imagenes\caja.png" />
     <Content Include="Imagenes\cajacierres.png" />
@@ -284,13 +670,10 @@
     <Content Include="Imagenes\imgSinImagen.png" />
     <Content Include="Imagenes\imprimir.png" />
     <Content Include="Imagenes\imprimir30.png" />
-    <Content Include="Imagenes\imprimiretiquetas.png" />
     <Content Include="Imagenes\inventario.png" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\logofacebook.png" />
     <Content Include="Imagenes\logoinstagram.png" />
-    <Content Include="Imagenes\logowh.png" />
-    <Content Include="Imagenes\logowh130.fw.png" />
     <Content Include="Imagenes\menos20.png" />
     <Content Include="Imagenes\MonedaAR30.fw.png" />
     <Content Include="Imagenes\MonedaEU30.fw.png" />
@@ -309,7 +692,9 @@
     <Content Include="Imagenes\ok.png" />
     <Content Include="Imagenes\outlet001.png" />
     <Content Include="Imagenes\pagosClientes.png" />
+    <Content Include="Imagenes\payomotos.png" />
     <Content Include="Imagenes\poneracero.png" />
+    <Content Include="Imagenes\praline.png" />
     <Content Include="Imagenes\precio20-1.png" />
     <Content Include="Imagenes\precio20.png" />
     <Content Include="Imagenes\presupuestos.png" />
@@ -320,16 +705,16 @@
     <Content Include="Imagenes\proveeproducto.png" />
     <Content Include="Imagenes\qrAFIP.png" />
     <Content Include="Imagenes\reposiciones.png" />
+    <Content Include="Imagenes\saboresalcarbon.png" />
     <Content Include="Imagenes\save.jpg" />
+    <Content Include="Imagenes\sefeliz.png" />
     <Content Include="Imagenes\seleccionar.png" />
     <Content Include="Imagenes\seleccionaritem.png" />
     <Content Include="Imagenes\seleccionaritem20.png" />
     <Content Include="Imagenes\sin limites 01.png" />
     <Content Include="Imagenes\sin limites 02.png" />
     <Content Include="Imagenes\sin limites 03.png" />
-    <Content Include="Imagenes\sin-foto.jpg" />
     <Content Include="Imagenes\sinfoto.jpg" />
-    <Content Include="Imagenes\sinfoto.png" />
     <Content Include="Imagenes\stock.png" />
     <Content Include="Imagenes\StockCritico30.png" />
     <Content Include="Imagenes\subcategorias.png" />
@@ -339,7 +724,6 @@
     <Content Include="Imagenes\Ventas01.png" />
     <Content Include="Imagenes\volver.png" />
     <Content Include="Imagenes\volver30.png" />
-    <Content Include="index.aspx" />
     <Content Include="js\actions.js" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\demo_charts_morris.js" />
@@ -785,11 +1169,12 @@
     <Content Include="js\scripts.js" />
     <Content Include="js\settings.js" />
     <Content Include="login.aspx" />
-    <Content Include="obj\Debug\axonnet.dll" />
-    <Content Include="obj\Debug\axonnet.pdb" />
-    <Content Include="obj\Debug\axonnet.vbproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\axonnet.xml" />
-    <Content Include="obj\Debug\TempPE\My Project.Resources.Designer.vb.dll" />
+    <Content Include="productos\sinfoto.jpg" />
+    <Content Include="productos\sinfoto.png" />
+    <Content Include="QRImagenes\213.png" />
+    <Content Include="QRImagenes\443.png" />
+    <Content Include="QRImagenes\__Page.png" />
+    <Content Include="Registrarse.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -798,11 +1183,43 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dataTables.js" />
     <Content Include="Scripts\dataTables.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Demo.Master" />
+    <Content Include="img\.DS_Store" />
+    <None Include="My Project\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -828,28 +1245,320 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="css\obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.vb" />
-    <Compile Include="index.aspx.designer.vb">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="CatalogoAdministracion.aspx.designer.vb">
+      <DependentUpon>CatalogoAdministracion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="index.aspx.vb">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="CatalogoAdministracion.aspx.vb">
+      <DependentUpon>CatalogoAdministracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Catalogo_Ficha.aspx.designer.vb">
+      <DependentUpon>Catalogo_Ficha.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Catalogo_Ficha.aspx.vb">
+      <DependentUpon>Catalogo_Ficha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente_lista.aspx.designer.vb">
+      <DependentUpon>Cliente_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente_lista.aspx.vb">
+      <DependentUpon>Cliente_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cliente_Lista_ABM.aspx.designer.vb">
+      <DependentUpon>Cliente_Lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente_Lista_ABM.aspx.vb">
+      <DependentUpon>Cliente_Lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Compras_Emision.aspx.designer.vb">
+      <DependentUpon>Compras_Emision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Compras_Emision.aspx.vb">
+      <DependentUpon>Compras_Emision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="compras_lista.aspx.designer.vb">
+      <DependentUpon>compras_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="compras_lista.aspx.vb">
+      <DependentUpon>compras_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GuardarEnCarrito.aspx.designer.vb">
+      <DependentUpon>GuardarEnCarrito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GuardarEnCarrito.aspx.vb">
+      <DependentUpon>GuardarEnCarrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="monedas_lista.aspx.designer.vb">
+      <DependentUpon>monedas_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="monedas_lista.aspx.vb">
+      <DependentUpon>monedas_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="moneda_lista_ABM.aspx.designer.vb">
+      <DependentUpon>moneda_lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="moneda_lista_ABM.aspx.vb">
+      <DependentUpon>moneda_lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Producto_Categoria_Lista.aspx.designer.vb">
+      <DependentUpon>Producto_Categoria_Lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Producto_Categoria_Lista.aspx.vb">
+      <DependentUpon>Producto_Categoria_Lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Producto_Categoria_Lista_ABM.aspx.designer.vb">
+      <DependentUpon>Producto_Categoria_Lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Producto_Categoria_Lista_ABM.aspx.vb">
+      <DependentUpon>Producto_Categoria_Lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_etiquetas.aspx.designer.vb">
+      <DependentUpon>producto_etiquetas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_etiquetas.aspx.vb">
+      <DependentUpon>producto_etiquetas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_fotos.aspx.designer.vb">
+      <DependentUpon>producto_fotos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_fotos.aspx.vb">
+      <DependentUpon>producto_fotos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_imprimir_etiquetas.aspx.designer.vb">
+      <DependentUpon>producto_imprimir_etiquetas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_imprimir_etiquetas.aspx.vb">
+      <DependentUpon>producto_imprimir_etiquetas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_inventario.aspx.designer.vb">
+      <DependentUpon>producto_inventario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_inventario.aspx.vb">
+      <DependentUpon>producto_inventario.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="producto_lista.aspx.designer.vb">
+      <DependentUpon>producto_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_lista.aspx.vb">
+      <DependentUpon>producto_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_lista_ABM.aspx.designer.vb">
+      <DependentUpon>producto_lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_lista_ABM.aspx.vb">
+      <DependentUpon>producto_lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_lista_precios_suc.aspx.designer.vb">
+      <DependentUpon>producto_lista_precios_suc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_lista_precios_suc.aspx.vb">
+      <DependentUpon>producto_lista_precios_suc.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="producto_marca_lista.aspx.designer.vb">
+      <DependentUpon>producto_marca_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_marca_lista.aspx.vb">
+      <DependentUpon>producto_marca_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_marca_lista_ABM.aspx.designer.vb">
+      <DependentUpon>producto_marca_lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_marca_lista_ABM.aspx.vb">
+      <DependentUpon>producto_marca_lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_stock_ajustes.aspx.designer.vb">
+      <DependentUpon>producto_stock_ajustes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_stock_ajustes.aspx.vb">
+      <DependentUpon>producto_stock_ajustes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="producto_stock_listado.aspx.designer.vb">
+      <DependentUpon>producto_stock_listado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="producto_stock_listado.aspx.vb">
+      <DependentUpon>producto_stock_listado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="proveedor_lista.aspx.designer.vb">
+      <DependentUpon>proveedor_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="proveedor_lista.aspx.vb">
+      <DependentUpon>proveedor_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="proveedor_lista_ABM.aspx.designer.vb">
+      <DependentUpon>proveedor_lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="proveedor_lista_ABM.aspx.vb">
+      <DependentUpon>proveedor_lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Repisiciones_Emision.aspx.designer.vb">
+      <DependentUpon>Repisiciones_Emision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Repisiciones_Emision.aspx.vb">
+      <DependentUpon>Repisiciones_Emision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="repo2.aspx.designer.vb">
+      <DependentUpon>repo2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="repo2.aspx.vb">
+      <DependentUpon>repo2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reposiciones_lista.aspx.designer.vb">
+      <DependentUpon>Reposiciones_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reposiciones_lista.aspx.vb">
+      <DependentUpon>Reposiciones_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Suculsales_Lista.aspx.designer.vb">
+      <DependentUpon>Suculsales_Lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Suculsales_Lista.aspx.vb">
+      <DependentUpon>Suculsales_Lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sucursales_ABM.aspx.designer.vb">
+      <DependentUpon>Sucursales_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sucursales_ABM.aspx.vb">
+      <DependentUpon>Sucursales_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuarios_lista.aspx.designer.vb">
+      <DependentUpon>Usuarios_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios_lista.aspx.vb">
+      <DependentUpon>Usuarios_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuarios_Lista_ABM.aspx.designer.vb">
+      <DependentUpon>Usuarios_Lista_ABM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios_Lista_ABM.aspx.vb">
+      <DependentUpon>Usuarios_Lista_ABM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuarios_ResetearPassword.aspx.designer.vb">
+      <DependentUpon>Usuarios_ResetearPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios_ResetearPassword.aspx.vb">
+      <DependentUpon>Usuarios_ResetearPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas_Emision.aspx.designer.vb">
+      <DependentUpon>Ventas_Emision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas_Emision.aspx.vb">
+      <DependentUpon>Ventas_Emision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ventas_lista.aspx.designer.vb">
+      <DependentUpon>Ventas_lista.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas_lista.aspx.vb">
+      <DependentUpon>Ventas_lista.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacto.aspx.designer.vb">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Contacto.aspx.vb">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="css\obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.vb" />
+    <Compile Include="Empresa_Datos.aspx.designer.vb">
+      <DependentUpon>Empresa_Datos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empresa_Datos.aspx.vb">
+      <DependentUpon>Empresa_Datos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="DefaultAdmin.aspx.designer.vb">
+      <DependentUpon>DefaultAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultAdmin.aspx.vb">
+      <DependentUpon>DefaultAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Demo.Master.designer.vb">
+      <DependentUpon>Demo.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Demo.Master.vb">
+      <DependentUpon>Demo.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default_demo.aspx.designer.vb">
+      <DependentUpon>Default_demo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default_demo.aspx.vb">
+      <DependentUpon>Default_demo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Demo_login.aspx.designer.vb">
+      <DependentUpon>Demo_login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demo_login.aspx.vb">
+      <DependentUpon>Demo_login.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Demo_Registrarse.aspx.designer.vb">
+      <DependentUpon>Demo_Registrarse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Demo_Registrarse.aspx.vb">
+      <DependentUpon>Demo_Registrarse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EtiquetaImpresion.vb" />
+    <Compile Include="funciones\funciones.vb" />
     <Compile Include="login.aspx.designer.vb">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
     <Compile Include="login.aspx.vb">
       <DependentUpon>login.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="MisFunciones.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
       <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
@@ -866,6 +1575,34 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.vb" />
+    <Compile Include="Registrarse.aspx.designer.vb">
+      <DependentUpon>Registrarse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registrarse.aspx.vb">
+      <DependentUpon>Registrarse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administracion.Master.designer.vb">
+      <DependentUpon>Administracion.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Administracion.Master.vb">
+      <DependentUpon>Administracion.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.vb">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.vb">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.vb">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.vb">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="css\obj\Debug\capaAdministracion.Resources.resources" />
@@ -875,36 +1612,8 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="obj\Debug\axonnet.Resources.resources" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\axonnet.dll.config" />
-    <Content Include="bin\roslyn\csc.exe.config" />
-    <Content Include="bin\roslyn\csc.rsp" />
-    <Content Include="bin\roslyn\csi.exe.config" />
-    <Content Include="bin\roslyn\csi.rsp" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.Managed.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\vbc.exe.config" />
-    <Content Include="bin\roslyn\vbc.rsp" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="css\.DS_Store" />
     <Content Include="css\bootstrap\bootstrap.css.map" />
     <Content Include="css\forms-material\forms-material.less" />
@@ -927,19 +1636,11 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="obj\Debug\axonnet.vbproj.AssemblyReference.cache" />
-    <Content Include="obj\Debug\axonnet.vbproj.CoreCompileInputs.cache" />
-    <Content Include="obj\Debug\axonnet.vbproj.GenerateResource.cache" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="packages.config" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Administracion.Master" />
+    <Content Include="Site.Mobile.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -948,7 +1649,23 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Administracion\" />
+    <Folder Include="Demo\" />
     <Folder Include="js\plugins\fileinput\fileinput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\capaDatos\capaDatos.vbproj">
+      <Project>{16a143ca-8511-4b6c-aac6-cc723eb25f79}</Project>
+      <Name>capaDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\capaEntidad\capaEntidad.vbproj">
+      <Project>{e374763d-b9a9-4a70-8682-93dbeef803a1}</Project>
+      <Name>capaEntidad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\capaNegocio\capaNegocio.vbproj">
+      <Project>{a7e1eb93-90b5-45bf-87d1-6a332c81ee2a}</Project>
+      <Name>capaNegocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -987,11 +1704,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
